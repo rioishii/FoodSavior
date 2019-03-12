@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F2F0CC6322377B4700A10CA7 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CC6222377B4700A10CA7 /* ExampleViewController.swift */; };
 		F2F6A533222F9DB800BD2E61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F6A532222F9DB800BD2E61 /* AppDelegate.swift */; };
 		F2F6A538222F9DB800BD2E61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2F6A536222F9DB800BD2E61 /* Main.storyboard */; };
 		F2F6A53A222F9DB900BD2E61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2F6A539222F9DB900BD2E61 /* Assets.xcassets */; };
 		F2F6A53D222F9DB900BD2E61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2F6A53B222F9DB900BD2E61 /* LaunchScreen.storyboard */; };
 		F2F6A548222F9DB900BD2E61 /* FoodSaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F6A547222F9DB900BD2E61 /* FoodSaviorTests.swift */; };
 		F2F6A558222F9E2000BD2E61 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F6A557222F9E2000BD2E61 /* HomeViewController.swift */; };
+		F2F6A55A2231F8F100BD2E61 /* RedUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F6A5592231F8F100BD2E61 /* RedUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F2F0CC6222377B4700A10CA7 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		F2F6A52F222F9DB800BD2E61 /* FoodSavior.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodSavior.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2F6A532222F9DB800BD2E61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2F6A537222F9DB800BD2E61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -36,6 +39,7 @@
 		F2F6A547222F9DB900BD2E61 /* FoodSaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSaviorTests.swift; sourceTree = "<group>"; };
 		F2F6A549222F9DB900BD2E61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2F6A557222F9E2000BD2E61 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F2F6A5592231F8F100BD2E61 /* RedUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				F2F6A557222F9E2000BD2E61 /* HomeViewController.swift */,
+				F2F0CC6222377B4700A10CA7 /* ExampleViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 		F2F6A554222F9DF500BD2E61 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F2F6A5592231F8F100BD2E61 /* RedUIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -238,6 +244,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2F6A533222F9DB800BD2E61 /* AppDelegate.swift in Sources */,
+				F2F0CC6322377B4700A10CA7 /* ExampleViewController.swift in Sources */,
+				F2F6A55A2231F8F100BD2E61 /* RedUIView.swift in Sources */,
 				F2F6A558222F9E2000BD2E61 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
