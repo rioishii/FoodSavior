@@ -23,6 +23,7 @@ class RecipeViewController: UIViewController {
 		// i.e. tableView.delegate = self, etc
 
 		// Do any other setup
+		self.view.addSubview(tableView)
 		
         self.addConstraints()
     }
@@ -30,19 +31,29 @@ class RecipeViewController: UIViewController {
 	// TODO: Fill in this method appropriately
 	func addConstraints() {
 		
-		
-		
-		
+		// Table view constraints
+		self.tableView.translatesAutoresizingMaskIntoConstraints = false
+		self.tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor)
+		self.tableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor)
+		self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+		self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
 	}
 }
 
 extension RecipeViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		<#code#>
+		return 0
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		<#code#>
+		
+		let cell = tableView.dequeueReusableCell(withIdentifier: "cellIdentifier")
+		
+		guard let unwrappedCell = cell else {
+			return UITableViewCell()
+		}
+		
+		return unwrappedCell
 	}
 }
 

@@ -24,7 +24,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ET-r5-0ed" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3905" y="203"/>
+            <point key="canvasLocation" x="3904.8000000000002" y="202.84857571214394"/>
         </scene>
         <!--Recipe View Controller-->
         <scene sceneID="U1I-HX-2kU">
@@ -52,8 +52,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="oXn-1E-aiu" kind="relationship" relationship="viewControllers" id="dc6-Ql-c3g"/>
-                        <segue destination="KX3-pg-bdt" kind="relationship" relationship="viewControllers" id="lsZ-0m-Iq5"/>
+                        <segue destination="KX3-pg-bdt" kind="relationship" relationship="viewControllers" id="Lmc-vu-zLp"/>
+                        <segue destination="oXn-1E-aiu" kind="relationship" relationship="viewControllers" id="UPX-aU-40m"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9qB-qC-Nro" userLabel="First Responder" sceneMemberID="firstResponder"/>
