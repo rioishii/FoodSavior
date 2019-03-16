@@ -8,23 +8,100 @@
 
 import UIKit
 
-class FavoritesViewController: UIViewController {
+class FavoritesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
 
+    let screenSize: CGRect = UIScreen.main.bounds
+    private let cellReuseIdentifier = "cellId"
+    
+    var recipes: [Recipe] = {
+        var hamburger = Recipe()
+        hamburger.name = "Hamburger"
+        hamburger.calories = "Calories: 650"
+        hamburger.time = "Time: 30 min"
+        hamburger.cost = "Cost: $3.20"
+        
+        var pasta = Recipe()
+        pasta.name = "Pasta"
+        pasta.calories = "Calories: 400"
+        pasta.time = "Time: 25 min"
+        pasta.cost = "Cost: $1.50"
+        
+        var chicken = Recipe()
+        chicken.name = "Some Chicken"
+        chicken.calories = "Calories: 530"
+        chicken.time = "Time: 60 min"
+        chicken.cost = "Cost: $5.50"
+        
+        return [hamburger, pasta, chicken]
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        let flowLayout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: flowLayout)
+        collectionView.register(RecipeCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        
+        navigationController?.navigationBar.isTranslucent = false
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "Favorites"
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont.systemFont(ofSize: 25)
+        navigationItem.titleView = titleLabel
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = UIColor.white
+        
+        self.view.addSubview(collectionView)
+        
+        collectionView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 85, right: 0)
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 85, right: 0)
+        
+        setupMenuBar()
+        setupNavBarButton()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setupNavBarButton() {
+        let settingImage = UIImage(named: "setting")?.withRenderingMode(.alwaysOriginal)
+        let settingButton = UIBarButtonItem(image: settingImage, style: .plain, target: self, action: #selector(handleSettings))
+        navigationItem.leftBarButtonItem = settingButton
     }
-    */
-
+    
+    @objc func handleSettings() {
+        print(123)
+    }
+    
+    let menuBar: MenuBar = {
+        let mb = MenuBar()
+        return mb
+    }()
+    
+    private func setupMenuBar() {
+        view.addSubview(menuBar)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
+        view.addConstraintsWithFormat(format: "V:|[v0(50)]", views: menuBar)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return self.recipes.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! RecipeCell
+        cell.recipe = recipes[indexPath.item]
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = (view.frame.width - 16 - 16) * 9 / 16
+        return CGSize(width: view.frame.width, height: height + 16 + 68)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
 }
+
