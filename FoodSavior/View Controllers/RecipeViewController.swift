@@ -8,62 +8,106 @@
 
 import UIKit
 
-class RecipeViewController: UIViewController {
+class RecipeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
 
-	var tableView: UITableView!
-	var delegate: UITableViewDelegate?
-	var dataSource: UITableViewDataSource?
-	
+    let screenSize: CGRect = UIScreen.main.bounds
+    private let cellReuseIdentifier = "cellId"
+    
+    var recipes: [Recipe] = {
+       var hamburger = Recipe()
+        hamburger.name = "Hamburger"
+        hamburger.calories = "Calories: 650"
+        hamburger.time = "Time: 30 min"
+        hamburger.cost = "Cost: $3.20"
+        
+        var pasta = Recipe()
+        pasta.name = "Pasta"
+        pasta.calories = "Calories: 400"
+        pasta.time = "Time: 25 min"
+        pasta.cost = "Cost: $1.50"
+        
+        var chicken = Recipe()
+        chicken.name = "Some Chicken"
+        chicken.calories = "Calories: 530"
+        chicken.time = "Time: 60 min"
+        chicken.cost = "Cost: $5.50"
+        
+        return [hamburger, pasta, chicken]
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-		self.tableView = UITableView(frame: CGRect.zero)
-		
-		// do some tableview set up
-		// Don't forget to set the dataSource and delegate!
-		// i.e. tableView.delegate = self, etc
-
-		// Do any other setup
-		self.view.addSubview(tableView)
-		
-        self.addConstraints()
+        let flowLayout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: flowLayout)
+        collectionView.register(RecipeCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        
+        navigationController?.navigationBar.isTranslucent = false
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "Recipes"
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont.systemFont(ofSize: 25)
+        navigationItem.titleView = titleLabel
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = UIColor.white
+        
+        self.view.addSubview(collectionView)
+        
+        collectionView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 85, right: 0)
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 85, right: 0)
+        
+        setupMenuBar()
+        setupNavBarButton()
+    }
+    
+    func setupNavBarButton() {
+        let settingImage = UIImage(named: "setting")?.withRenderingMode(.alwaysOriginal)
+        let settingButton = UIBarButtonItem(image: settingImage, style: .plain, target: self, action: #selector(handleSettings))
+        navigationItem.leftBarButtonItem = settingButton
+    }
+    
+    @objc func handleSettings() {
+        print(123)
+    }
+    
+    let menuBar: MenuBar = {
+       let mb = MenuBar()
+        return mb
+    }()
+    
+    private func setupMenuBar() {
+        view.addSubview(menuBar)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
+        view.addConstraintsWithFormat(format: "V:|[v0(50)]", views: menuBar)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return self.recipes.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! RecipeCell
+        cell.recipe = recipes[indexPath.item]
+        return cell
     }
 	
-	// TODO: Fill in this method appropriately
-	func addConstraints() {
-		
-		// Table view constraints
-		self.tableView.translatesAutoresizingMaskIntoConstraints = false
-		self.tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor)
-		self.tableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor)
-		self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
-		self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
-	}
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = (view.frame.width - 16 - 16) * 9 / 16
+        return CGSize(width: view.frame.width, height: height + 16 + 68)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
 }
 
-extension RecipeViewController: UITableViewDataSource {
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 0
-	}
-	
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		
-		let cell = tableView.dequeueReusableCell(withIdentifier: "cellIdentifier")
-		
-		guard let unwrappedCell = cell else {
-			return UITableViewCell()
-		}
-		
-		return unwrappedCell
-	}
-}
 
-extension RecipeViewController: UITableViewDelegate {
-	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-	// Use this to move on to the Recipe Details View Controller, passing the proper data
-		
-		
-		
-	}
-}
+
+
+
 
 
