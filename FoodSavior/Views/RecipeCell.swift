@@ -45,6 +45,7 @@ class RecipeCell: BaseCell {
     
     let recipeNameLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont(name:"HelveticaNeue", size: 20)
         return label
     }()
     
@@ -82,12 +83,12 @@ class RecipeCell: BaseCell {
         
         addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: recipeImageView)
         
-        addConstraintsWithFormat(format: "H:|-16-[v0(200)]-16-|", views: recipeNameLabel)
+        addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: recipeNameLabel)
         
         addConstraintsWithFormat(format: "H:|-16-[v0(120)]", views: recipeCaloriesLabel)
         
         // vertical constrains
-        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(20)]-8-[v2(20)]-16-[v3(1)]|", views: recipeImageView, recipeNameLabel, recipeCaloriesLabel, separatorView)
+        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(25)]-8-[v2(20)]-16-[v3(1)]|", views: recipeImageView, recipeNameLabel, recipeCaloriesLabel, separatorView)
         
         // RecipeTimeLabel
         addConstraintsWithFormat(format: "H:[v0(120)]", views: recipeTimeLabel)
