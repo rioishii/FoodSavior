@@ -17,19 +17,19 @@ class RecipeViewController: UIViewController, UICollectionViewDataSource, UIColl
        var hamburger = Recipe()
         hamburger.name = "Hamburger"
         hamburger.calories = "Calories: 650"
-        hamburger.time = "Time: 30 min"
+        hamburger.time = "Time: 30 mins"
         hamburger.cost = "Cost: $3.20"
         
         var pasta = Recipe()
         pasta.name = "Pasta"
         pasta.calories = "Calories: 400"
-        pasta.time = "Time: 25 min"
+        pasta.time = "Time: 25 mins"
         pasta.cost = "Cost: $1.50"
         
         var chicken = Recipe()
         chicken.name = "Some Chicken"
         chicken.calories = "Calories: 530"
-        chicken.time = "Time: 60 min"
+        chicken.time = "Time: 60 mins"
         chicken.cost = "Cost: $5.50"
         
         return [hamburger, pasta, chicken]
@@ -78,9 +78,19 @@ class RecipeViewController: UIViewController, UICollectionViewDataSource, UIColl
     }()
     
     private func setupMenuBar() {
+        navigationController?.hidesBarsOnSwipe = true
+        
+        let redView = UIView()
+        redView.backgroundColor = UIColor.rgb(red: 230, green: 32, blue: 31)
+        view.addSubview(redView)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: redView)
+        view.addConstraintsWithFormat(format: "V:[v0(50)]", views: redView)
+        
         view.addSubview(menuBar)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
-        view.addConstraintsWithFormat(format: "V:|[v0(50)]", views: menuBar)
+        view.addConstraintsWithFormat(format: "V:[v0(50)]", views: menuBar)
+        
+        menuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -102,6 +112,7 @@ class RecipeViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
     
 }
 

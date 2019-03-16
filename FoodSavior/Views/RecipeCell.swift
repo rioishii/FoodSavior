@@ -37,7 +37,6 @@ class RecipeCell: BaseCell {
     
     let recipeImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "burger")?.withRenderingMode(.alwaysTemplate)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
@@ -52,18 +51,21 @@ class RecipeCell: BaseCell {
     let recipeCaloriesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.lightGray
         return label
     }()
     
     let recipeTimeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.lightGray
         return label
     }()
     
     let recipeCostLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.lightGray
         return label
     }()
     
