@@ -18,11 +18,6 @@ class RecipeViewController: UIViewController {
         super.viewDidLoad()
 		self.tableView = UITableView(frame: CGRect.zero)
 		
-		// do some tableview set up
-		// Don't forget to set the dataSource and delegate!
-		// i.e. tableView.delegate = self, etc
-
-		// Do any other setup
 		self.view.addSubview(tableView)
 		
         self.addConstraints()
@@ -33,10 +28,10 @@ class RecipeViewController: UIViewController {
 		
 		// Table view constraints
 		self.tableView.translatesAutoresizingMaskIntoConstraints = false
-		self.tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor)
-		self.tableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor)
-		self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
-		self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
+		self.tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor).isActive = true
+		self.tableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor).isActive = true
+		self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+		self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
 	}
 }
 
