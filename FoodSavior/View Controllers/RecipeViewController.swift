@@ -13,24 +13,9 @@ class RecipeViewController: UIViewController, UICollectionViewDataSource, UIColl
     let screenSize: CGRect = UIScreen.main.bounds
     private let cellReuseIdentifier = "cellId"
     
-    var recipes: [Recipe] = {
-       var hamburger = Recipe()
-        hamburger.name = "Hamburger"
-        hamburger.time = "30"
-        
-        var pasta = Recipe()
-        pasta.name = "Pasta"
-        pasta.time = "25"
-        
-        var chicken = Recipe()
-        chicken.name = "Some Chicken"
-        chicken.time = "60"
-        
-        return [hamburger, pasta, chicken]
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+
         let flowLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: flowLayout)
         collectionView.register(RecipeCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
@@ -89,7 +74,7 @@ class RecipeViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return self.recipes.count
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -112,8 +97,6 @@ class RecipeViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
-    
 }
 
 
