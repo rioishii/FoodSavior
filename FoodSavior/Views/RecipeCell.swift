@@ -25,15 +25,21 @@ class BaseCell: UICollectionViewCell {
 
 class RecipeCell: BaseCell {
     
-    var recipe: Recipe? {
-        didSet {
-            recipeImageView.image = UIImage(named: (recipe?.name)!)
-            recipeNameLabel.text = recipe?.name
-            recipeCaloriesLabel.text = recipe?.calories
-            recipeTimeLabel.text = recipe?.time
-            recipeCostLabel.text = recipe?.cost
-        }
-    }
+//    var recipe: Recipe? {
+//        didSet {
+//
+//            guard let recipe = recipe else {
+//                return
+//            }
+//
+//            let time = recipe.time ?? 0
+//
+//
+//            recipeImageView.image = UIImage(named: (recipe?.name)!)
+//            recipeNameLabel.text = recipe?.name
+//            recipeTimeLabel.text = "Ready in \(recipe?.time) minutes"
+//        }
+//    }
     
     let recipeImageView: UIImageView = {
         let imageView = UIImageView()
@@ -48,21 +54,7 @@ class RecipeCell: BaseCell {
         return label
     }()
     
-    let recipeCaloriesLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.lightGray
-        return label
-    }()
-    
     let recipeTimeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.lightGray
-        return label
-    }()
-    
-    let recipeCostLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.lightGray
@@ -79,38 +71,15 @@ class RecipeCell: BaseCell {
         addSubview(recipeImageView)
         addSubview(recipeNameLabel)
         addSubview(separatorView)
-        addSubview(recipeCaloriesLabel)
         addSubview(recipeTimeLabel)
-        addSubview(recipeCostLabel)
         
         addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: recipeImageView)
-        
         addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: recipeNameLabel)
-        
-        addConstraintsWithFormat(format: "H:|-16-[v0(120)]", views: recipeCaloriesLabel)
+        addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: recipeTimeLabel)
         
         // vertical constrains
-        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(25)]-8-[v2(20)]-16-[v3(1)]|", views: recipeImageView, recipeNameLabel, recipeCaloriesLabel, separatorView)
-        
-        // RecipeTimeLabel
-        addConstraintsWithFormat(format: "H:[v0(120)]", views: recipeTimeLabel)
-        // top constraints
-        addConstraints([NSLayoutConstraint(item: recipeTimeLabel, attribute: .top, relatedBy: .equal, toItem: recipeNameLabel, attribute: .bottom, multiplier: 1, constant: 8)])
-        // left constraints
-        addConstraints([NSLayoutConstraint(item: recipeTimeLabel, attribute: .left, relatedBy: .equal, toItem: recipeCaloriesLabel, attribute: .right, multiplier: 1, constant: 8)])
-        // height constrains
-        addConstraints([NSLayoutConstraint(item: recipeTimeLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 20)])
-
-        //RecipeCostLabel
-        addConstraintsWithFormat(format: "H:[v0(120)]", views: recipeCostLabel)
-        // top constraints
-        addConstraints([NSLayoutConstraint(item: recipeCostLabel, attribute: .top, relatedBy: .equal, toItem: recipeNameLabel, attribute: .bottom, multiplier: 1, constant: 8)])
-        // left constraints
-        addConstraints([NSLayoutConstraint(item: recipeCostLabel, attribute: .left, relatedBy: .equal, toItem: recipeTimeLabel, attribute: .right, multiplier: 1, constant: 8)])
-        // height constrains
-        addConstraints([NSLayoutConstraint(item: recipeCostLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 20)])
-        
-        
+        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(25)]-8-[v2(20)]-16-[v3(1)]|", views: recipeImageView, recipeNameLabel, recipeTimeLabel, separatorView)
+    
         addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
         
     }

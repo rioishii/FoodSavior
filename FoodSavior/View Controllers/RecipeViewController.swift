@@ -16,21 +16,15 @@ class RecipeViewController: UIViewController, UICollectionViewDataSource, UIColl
     var recipes: [Recipe] = {
        var hamburger = Recipe()
         hamburger.name = "Hamburger"
-        hamburger.calories = "Calories: 650"
-        hamburger.time = "Time: 30 mins"
-        hamburger.cost = "Cost: $3.20"
+        hamburger.time = "30"
         
         var pasta = Recipe()
         pasta.name = "Pasta"
-        pasta.calories = "Calories: 400"
-        pasta.time = "Time: 25 mins"
-        pasta.cost = "Cost: $1.50"
+        pasta.time = "25"
         
         var chicken = Recipe()
         chicken.name = "Some Chicken"
-        chicken.calories = "Calories: 530"
-        chicken.time = "Time: 60 mins"
-        chicken.cost = "Cost: $5.50"
+        chicken.time = "60"
         
         return [hamburger, pasta, chicken]
     }()
@@ -99,8 +93,14 @@ class RecipeViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! RecipeCell
-        cell.recipe = recipes[indexPath.item]
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as? RecipeCell else {
+            return UICollectionViewCell()
+        }
+        
+        cell.recipeImageView.image = UIImage(named: "Pasta")
+        cell.recipeNameLabel.text = "Burger"
+        cell.recipeTimeLabel.text = "30 Minutes"
+
         return cell
     }
 	

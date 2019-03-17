@@ -11,8 +11,6 @@ import UIKit
 class Recipe: NSObject {
     
     var name: String?
-    var calories: String?
     var time: String?
-    var cost: String?
     
 }
