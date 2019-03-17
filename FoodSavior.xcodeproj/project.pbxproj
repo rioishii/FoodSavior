@@ -10,7 +10,6 @@
 		411AA93E223C2FFA006CCC82 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411AA93D223C2FFA006CCC82 /* Extentions.swift */; };
 		411AA940223C3069006CCC82 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411AA93F223C3069006CCC82 /* RecipeCell.swift */; };
 		411AA944223C3911006CCC82 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411AA943223C3911006CCC82 /* MenuBar.swift */; };
-		411AA946223C7E1A006CCC82 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411AA945223C7E1A006CCC82 /* Recipe.swift */; };
 		F2F0CC6522377E6200A10CA7 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CC6422377E6200A10CA7 /* RecipeViewController.swift */; };
 		F2F0CC672237827D00A10CA7 /* RecipeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CC662237827D00A10CA7 /* RecipeTabBarController.swift */; };
 		F2F0CC69223785F900A10CA7 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CC68223785F900A10CA7 /* FavoritesViewController.swift */; };
@@ -19,6 +18,8 @@
 		F2F0CC6F2239BC4500A10CA7 /* GetRecipeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CC6E2239BC4500A10CA7 /* GetRecipeAPI.swift */; };
 		F2F0CCA1223DC53400A10CA7 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CCA0223DC53400A10CA7 /* Recipe.swift */; };
 		F2F0CCA3223DD07700A10CA7 /* RecipeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CCA2223DD07700A10CA7 /* RecipeDetail.swift */; };
+		F2F0CCA5223EF1DD00A10CA7 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CCA4223EF1DD00A10CA7 /* Instruction.swift */; };
+		F2F0CCA7223F05E700A10CA7 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CCA6223F05E700A10CA7 /* Ingredient.swift */; };
 		F2F6A533222F9DB800BD2E61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F6A532222F9DB800BD2E61 /* AppDelegate.swift */; };
 		F2F6A538222F9DB800BD2E61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2F6A536222F9DB800BD2E61 /* Main.storyboard */; };
 		F2F6A53A222F9DB900BD2E61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2F6A539222F9DB900BD2E61 /* Assets.xcassets */; };
@@ -40,7 +41,6 @@
 		411AA93D223C2FFA006CCC82 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		411AA93F223C3069006CCC82 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		411AA943223C3911006CCC82 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
-		411AA945223C7E1A006CCC82 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Recipe.swift; path = FoodSavior/Views/Recipe.swift; sourceTree = SOURCE_ROOT; };
 		F2F0CC6422377E6200A10CA7 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		F2F0CC662237827D00A10CA7 /* RecipeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTabBarController.swift; sourceTree = "<group>"; };
 		F2F0CC68223785F900A10CA7 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +49,8 @@
 		F2F0CC6E2239BC4500A10CA7 /* GetRecipeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecipeAPI.swift; sourceTree = "<group>"; };
 		F2F0CCA0223DC53400A10CA7 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		F2F0CCA2223DD07700A10CA7 /* RecipeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetail.swift; sourceTree = "<group>"; };
+		F2F0CCA4223EF1DD00A10CA7 /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
+		F2F0CCA6223F05E700A10CA7 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		F2F6A52F222F9DB800BD2E61 /* FoodSavior.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodSavior.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2F6A532222F9DB800BD2E61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2F6A537222F9DB800BD2E61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -164,6 +166,8 @@
 			children = (
 				F2F0CCA0223DC53400A10CA7 /* Recipe.swift */,
 				F2F0CCA2223DD07700A10CA7 /* RecipeDetail.swift */,
+				F2F0CCA4223EF1DD00A10CA7 /* Instruction.swift */,
+				F2F0CCA6223F05E700A10CA7 /* Ingredient.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -279,6 +283,7 @@
 			files = (
 				F2F0CC6522377E6200A10CA7 /* RecipeViewController.swift in Sources */,
 				F2F0CC6B2237863A00A10CA7 /* FoodSelectionViewController.swift in Sources */,
+				F2F0CCA7223F05E700A10CA7 /* Ingredient.swift in Sources */,
 				F2F6A533222F9DB800BD2E61 /* AppDelegate.swift in Sources */,
 				411AA940223C3069006CCC82 /* RecipeCell.swift in Sources */,
 				F2F0CC6D2237882C00A10CA7 /* RecipeDetailsViewController.swift in Sources */,
@@ -286,9 +291,8 @@
 				F2F0CC69223785F900A10CA7 /* FavoritesViewController.swift in Sources */,
 				F2F0CC672237827D00A10CA7 /* RecipeTabBarController.swift in Sources */,
 				411AA93E223C2FFA006CCC82 /* Extentions.swift in Sources */,
-				F2F0CC6322377B4700A10CA7 /* ExampleViewController.swift in Sources */,
+				F2F0CCA5223EF1DD00A10CA7 /* Instruction.swift in Sources */,
 				F2F0CCA3223DD07700A10CA7 /* RecipeDetail.swift in Sources */,
-				F2F6A55A2231F8F100BD2E61 /* RedUIView.swift in Sources */,
 				F2F0CC6F2239BC4500A10CA7 /* GetRecipeAPI.swift in Sources */,
 				F2F0CCA1223DC53400A10CA7 /* Recipe.swift in Sources */,
 			);

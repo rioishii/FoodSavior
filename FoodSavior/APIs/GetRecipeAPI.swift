@@ -61,7 +61,7 @@ class GetRecipeAPI: NSObject {
 	}
 	
 	static func getRecipe(withID id: Int, completion: @escaping (_ result: RecipeDetail?, _ error: Error?) -> Void) {
-		let queryString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/\(id)/information"
+		let queryString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/\(id)/information?includeNutrition=true"
 	
 		guard let request = createRequest(withUrlString: queryString) else {
 			// couldn't properly create the request

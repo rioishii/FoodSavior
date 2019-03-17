@@ -10,9 +10,14 @@ import UIKit
 
 class RecipeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
 
-    let screenSize: CGRect = UIScreen.main.bounds
+    private let screenSize: CGRect = UIScreen.main.bounds
     private let cellReuseIdentifier = "cellId"
-    
+	
+	let menuBar: MenuBar = {
+		let mb = MenuBar()
+		return mb
+	}()
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,12 +55,7 @@ class RecipeViewController: UIViewController, UICollectionViewDataSource, UIColl
     @objc func handleSettings() {
         print(123)
     }
-    
-    let menuBar: MenuBar = {
-       let mb = MenuBar()
-        return mb
-    }()
-    
+	
     private func setupMenuBar() {
         navigationController?.hidesBarsOnSwipe = true
         
@@ -72,8 +72,7 @@ class RecipeViewController: UIViewController, UICollectionViewDataSource, UIColl
         menuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
-    {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
     
@@ -98,10 +97,3 @@ class RecipeViewController: UIViewController, UICollectionViewDataSource, UIColl
         return 0
     }
 }
-
-
-
-
-
-
-
