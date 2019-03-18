@@ -1,5 +1,5 @@
 //
-//  GetRecipeAPI.swift
+//  RecipeAPI.swift
 //  FoodSavior
 //
 //  Created by Dustin Langner on 3/13/19.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class GetRecipeAPI: NSObject {
+class RecipeAPI: NSObject {
 	
-	static func getRecipes(withIngredients ingredients: [String], completion: @escaping (_ result: [Recipe]?, _ error: Error?) -> Void) {
+	static func getRecipes(withIngredients ingredients: [String], completion: @escaping (_ result: [Recipe]?) -> Void) {
 		let baseQueryString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?"
 		
 		// TODO: fix this
@@ -28,32 +28,27 @@ class GetRecipeAPI: NSObject {
 		}
 		
 		let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-			guard let data = data, let httpResponse = response as? HTTPURLResponse else {
+			guard let data = data else {
 				// handle error
 				return
 			}
 			
-			if httpResponse.statusCode == 200 {
-				do {
-					let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
-					
-					guard let safeJson = json, let results = safeJson["results"] as? [[String : Any]] else {
-						return
-					}
-					
-					// map all the [String : Any] objects to a Recipe Object
-					let recipes = results.map({ (recipeData) -> Recipe in
-						return Recipe(data: recipeData)
-					})
-					
-					// SUCCESS
-					completion(recipes, nil)
-				} catch {
-					// json seralization failed
-					completion(nil, error)
+			do {
+				let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
+				guard let safeJson = json, let results = safeJson["results"] as? [[String : Any]] else {
+					return
 				}
-			} else {
-				completion(nil, error)
+				
+				// map all the [String : Any] objects to a Recipe Object
+				let recipes = results.map({ (recipeData) -> Recipe in
+					return Recipe(data: recipeData)
+				})
+				
+				// SUCCESS
+				completion(recipes)
+			} catch {
+				print("json seralization failed")
+				completion(nil)
 			}
 		}
 
@@ -69,33 +64,32 @@ class GetRecipeAPI: NSObject {
 		}
 		
 		let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-			guard let data = data, let httpResponse = response as? HTTPURLResponse else {
+			guard let data = data else {
 				// handle error
 				return
 			}
-			
-			if httpResponse.statusCode == 200 {
-				do {
-					let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
-					
-					guard let safeJson = json else {
-						return
-					}
-					
-					let recipeDetail = RecipeDetail(data: safeJson)
-					
-					completion(recipeDetail, nil)
-				} catch {
-					// json seralization failed
-					completion(nil, error)
+
+			do {
+				let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
+				guard let safeJson = json else {
+					return
 				}
-			} else {
+				let recipeDetail = RecipeDetail(data: safeJson)
+				
+				completion(recipeDetail, nil)
+			} catch {
+				print("json seralization failed")
 				completion(nil, error)
 			}
 		}
 		
 		task.resume()
 	}
+	
+	static func getRecipeImage(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+		URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+	}
+	
 	
 	private static func createRequest(withUrlString urlString: String) -> URLRequest? {
 		guard let url = URL(string: urlString) else {

@@ -64,7 +64,9 @@
         <scene sceneID="ycx-Zv-xyl">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KX3-pg-bdt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 1" id="X28-7x-5nc"/>
+                    <tabBarItem key="tabBarItem" title="Item 1" selectedImage="menu" id="X28-7x-5nc">
+                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FW6-C9-GRO">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -99,4 +101,7 @@
             <point key="canvasLocation" x="2992.8000000000002" y="202.84857571214394"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="menu" width="37.5" height="37.5"/>
+    </resources>
 </document>

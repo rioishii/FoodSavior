@@ -10,10 +10,9 @@ import UIKit
 
 class Recipe: NSObject {
 	let id: Int
-	let recipeName: String
+	let name: String
 	let imageUrl: String
 	let readyInMinutes: Int
-	
 	
 	init(data: [String : Any]) {
 		guard let id = data["id"] as? Int,
@@ -22,7 +21,7 @@ class Recipe: NSObject {
 		      let imagePath = data["image"] as? String else {
 				
 			self.id = -1
-			self.recipeName = ""
+			self.name = ""
 			self.readyInMinutes = 0
 			self.imageUrl = ""
 				
@@ -31,10 +30,12 @@ class Recipe: NSObject {
 		}
 		
 		self.id = id
-		self.recipeName = recipeName
+		self.name = recipeName
 		self.readyInMinutes = readyInMinutes
 		self.imageUrl = "https://spoonacular.com/recipeImages/" + imagePath
 
 		super.init()
 	}
+	
+	
 }
