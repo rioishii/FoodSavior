@@ -12,7 +12,7 @@ class RecipeCell: UITableViewCell {
 	
 	let recipeImageView: UIImageView = {
 		let recipeImageView = UIImageView()
-//		recipeImageView.contentMode = .scaleAspectFill
+		recipeImageView.contentMode = .scaleAspectFill
 		recipeImageView.clipsToBounds = true
 		return recipeImageView
 	}()

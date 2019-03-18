@@ -15,19 +15,27 @@ class RecipeViewController: UIViewController {
 	var tableView: UITableView!
 	var noDataLabel: UILabel!
 	
+	var menuBar: MenuBar!
+	
 	var recipes: [Recipe] = []
 	var recipeImages: [Recipe : UIImage] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		self.view.backgroundColor = UIColor.rgb(red: 34, green: 139, blue: 34)
 		
+		// ORDER MATTERS: This needs to be done before the table view is set up
 		setupNavigationBar()
+		
+		self.setupSubviews()
+		self.addSubviewConstraints()
     }
 	
 	func getRecipeData() {
 		let operationQueue = OperationQueue()
 		let dispatchGroup = DispatchGroup()
 		
+		// Gets most of the recipe data
 		let getRecipeData = BlockOperation {
 			dispatchGroup.enter()
 			RecipeAPI.getRecipes(withIngredients: ["chicken"]) { [weak self] (recipes) in
@@ -42,9 +50,8 @@ class RecipeViewController: UIViewController {
 			dispatchGroup.wait()
 		}
 		
+		// From the recipe data, fetches the actual image for the given recipe
 		let getRecipeImages = BlockOperation {
-			
-			
 			for recipe in self.recipes {
 				guard let imageUrl = URL(string: recipe.imageUrl) else {
 					continue
@@ -62,11 +69,16 @@ class RecipeViewController: UIViewController {
 			dispatchGroup.wait()
 		}
 		
+		// Updates the UI accordingly
 		let updateUI = BlockOperation {
 			dispatchGroup.enter()
 			DispatchQueue.main.async {
-				self.setupSubviews()
-				self.addSubviewConstraints()
+				if (self.tableView != nil) {
+					self.tableView.reloadData()
+				} else {
+					self.setupSubviews()
+					self.addSubviewConstraints()
+				}
 			}
 			dispatchGroup.leave()
 		}
@@ -91,7 +103,7 @@ class RecipeViewController: UIViewController {
 	
 	func addSubviewConstraints() {
 		self.tableView.translatesAutoresizingMaskIntoConstraints = false
-		self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+		self.tableView.topAnchor.constraint(equalTo: self.menuBar.bottomAnchor).isActive = true
 		self.tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor).isActive = true
 		self.tableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor).isActive = true
 		self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -110,6 +122,15 @@ class RecipeViewController: UIViewController {
 		
 		navigationItem.leftBarButtonItem = createNavBarButton(withImage: "setting", action: #selector(handleSettings), dimension: 40)
 		navigationItem.rightBarButtonItem = createNavBarButton(withImage: "fridge", action: #selector(handleAddFoodSelected), dimension: 40)
+		
+		menuBar = MenuBar(frame: .zero)
+		self.view.addSubview(menuBar)
+		
+		self.menuBar.translatesAutoresizingMaskIntoConstraints = false
+		self.menuBar.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor).isActive = true
+		self.menuBar.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor).isActive = true
+		self.menuBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+		self.menuBar.heightAnchor.constraint(equalToConstant: 60).isActive = true
 	}
 	
 	func createNavBarButton(withImage image: String, action: Selector, dimension: CGFloat) -> UIBarButtonItem {
@@ -135,9 +156,13 @@ class RecipeViewController: UIViewController {
 	}
 }
 
+// MARK - TableView Data Source
+
 extension RecipeViewController: UITableViewDataSource {
 	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return self.recipes.count
+		return 10
+		// NOTE: THE FOLLOWING SHOULD ONLY BE UNCOMMENTTED IF REQUESTS ARE BEING MADE
+		// return self.recipes.count
 	}
 	
 	public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -145,23 +170,31 @@ extension RecipeViewController: UITableViewDataSource {
 			return UITableViewCell()
 		}
 		
-		let recipe = recipes[indexPath.row]
-		
 		cell.preservesSuperviewLayoutMargins = false
 		cell.separatorInset = UIEdgeInsets.zero
 		cell.layoutMargins = UIEdgeInsets.zero
 		
-		cell.recipeImageView.image = recipeImages[recipe]
-		cell.nameLabel.text = recipe.name
-		cell.timeLabel.text = "\(recipe.readyInMinutes) minutes"
+		
+//		NOTE: THE FOLLOWING SHOULD ONLY BE UNCOMMENTTED IF REQUESTS ARE BEING MADE
+//		let recipe = recipes[indexPath.row]
+//
+//		cell.recipeImageView.image = recipeImages[recipe]
+//		cell.nameLabel.text = recipe.name
+//		cell.timeLabel.text = "\(recipe.readyInMinutes) minutes"
+		
+		cell.recipeImageView.image = UIImage(named: "Hamburger")
+		cell.nameLabel.text = "Test"
+		cell.timeLabel.text = "10 minutes"
 		
 		return cell
 	}
 }
 
+// MARK - TableView Delegate
+
 extension RecipeViewController: UITableViewDelegate {
 	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		
+		// do any setup when the cell is selected
 		
 		
 	}
