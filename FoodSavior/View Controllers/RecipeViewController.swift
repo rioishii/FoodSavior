@@ -12,18 +12,20 @@ class RecipeViewController: UIViewController {
 
     private let cellReuseIdentifier = "cellIdentifier"
 	
-	var tableView: UITableView!
+	var collectionView: UICollectionView!
 	var noDataLabel: UILabel!
 	
-	var menuBar: MenuBar!
+    var menuBar: MenuBar!
 	
 	var recipes: [Recipe] = []
 	var recipeImages: [Recipe : UIImage] = [:]
+    
+    let tabs = ["Recipes", "Favorites"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 		self.view.backgroundColor = UIColor.rgb(red: 34, green: 139, blue: 34)
-		
+        
 		// ORDER MATTERS: This needs to be done before the table view is set up
 		setupNavigationBar()
 		
@@ -73,8 +75,8 @@ class RecipeViewController: UIViewController {
 		let updateUI = BlockOperation {
 			dispatchGroup.enter()
 			DispatchQueue.main.async {
-				if (self.tableView != nil) {
-					self.tableView.reloadData()
+				if (self.collectionView != nil) {
+					self.collectionView.reloadData()
 				} else {
 					self.setupSubviews()
 					self.addSubviewConstraints()
@@ -93,20 +95,31 @@ class RecipeViewController: UIViewController {
 
 	
 	func setupSubviews() {
-		self.tableView = UITableView(frame: .zero)
-		self.tableView.delegate = self
-		self.tableView.dataSource = self
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 0
+        
+        self.collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: flowLayout)
+		self.collectionView.delegate = self
+		self.collectionView.dataSource = self
+        collectionView.isPagingEnabled = true
 		
-		 self.tableView.register(RecipeCell.self, forCellReuseIdentifier: cellReuseIdentifier)
-		self.view.addSubview(self.tableView)
+        self.collectionView.register(RecipeContainerCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        
+        self.collectionView.backgroundColor = UIColor.white
+        self.collectionView.contentInset = UIEdgeInsets(top: (self.navigationController?.navigationBar.frame.size.height)! + menuBar.frame.size.height + 8, left: 0, bottom: 0, right: 0)
+        self.collectionView.scrollIndicatorInsets = UIEdgeInsets(top: (self.navigationController?.navigationBar.frame.size.height)! + menuBar.frame.size.height + 8, left: 0, bottom: 0, right: 0)
+        
+		self.view.addSubview(self.collectionView)
 	}
 	
 	func addSubviewConstraints() {
-		self.tableView.translatesAutoresizingMaskIntoConstraints = false
-		self.tableView.topAnchor.constraint(equalTo: self.menuBar.bottomAnchor).isActive = true
-		self.tableView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor).isActive = true
-		self.tableView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor).isActive = true
-		self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+
+		self.collectionView.translatesAutoresizingMaskIntoConstraints = false
+		self.collectionView.topAnchor.constraint(equalTo: self.menuBar.safeAreaLayoutGuide.bottomAnchor).isActive = true
+		self.collectionView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor).isActive = true
+		self.collectionView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor).isActive = true
+		self.collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
 	}
 	
 	// MARK - Navigation Bar
@@ -114,16 +127,18 @@ class RecipeViewController: UIViewController {
 	func setupNavigationBar() {
 		navigationController?.navigationBar.isTranslucent = false
 		
-		let titleLabel = UILabel()
-		titleLabel.text = "Recipes"
-		titleLabel.textColor = UIColor.white
-		titleLabel.font = UIFont.systemFont(ofSize: 25)
-		navigationItem.titleView = titleLabel
+        let titleLabel = UILabel()
+        titleLabel.text = "Recipes"
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.numberOfLines = 0
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont.systemFont(ofSize: 30)
+        navigationItem.titleView = titleLabel
 		
 		navigationItem.leftBarButtonItem = createNavBarButton(withImage: "setting", action: #selector(handleSettings), dimension: 40)
 		navigationItem.rightBarButtonItem = createNavBarButton(withImage: "fridge", action: #selector(handleAddFoodSelected), dimension: 40)
 		
-		menuBar = MenuBar(frame: .zero)
+        self.menuBar = MenuBar(delegate: self)
 		self.view.addSubview(menuBar)
 		
 		self.menuBar.translatesAutoresizingMaskIntoConstraints = false
@@ -147,55 +162,67 @@ class RecipeViewController: UIViewController {
 	}
 	
 	@objc func handleSettings() {
-		
+
+        
 	}
 	
 	@objc func handleAddFoodSelected() {
 		
 		
 	}
+    
+    func scrollToMenuIndex(menuIndex: IndexPath) {
+        collectionView.scrollToItem(at: menuIndex, at: [], animated: true)
+        setTitleForIndex(index: menuIndex.item)
+    }
+    
+    private func setTitleForIndex(index: Int) {
+        if let titleLabel = navigationItem.titleView as? UILabel {
+            titleLabel.text = "\(tabs[index])"
+        }
+    }
 }
 
-// MARK - TableView Data Source
+extension RecipeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as? RecipeContainerCell else {
+            return UICollectionViewCell()
+        }
+        
+        if tabs[indexPath.item] == "Recipes" {
+            
+        } else {
 
-extension RecipeViewController: UITableViewDataSource {
-	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 10
-		// NOTE: THE FOLLOWING SHOULD ONLY BE UNCOMMENTTED IF REQUESTS ARE BEING MADE
-		// return self.recipes.count
-	}
-	
-	public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as? RecipeCell else {
-			return UITableViewCell()
-		}
-		
-		cell.preservesSuperviewLayoutMargins = false
-		cell.separatorInset = UIEdgeInsets.zero
-		cell.layoutMargins = UIEdgeInsets.zero
-		
-		
-//		NOTE: THE FOLLOWING SHOULD ONLY BE UNCOMMENTTED IF REQUESTS ARE BEING MADE
-//		let recipe = recipes[indexPath.row]
-//
-//		cell.recipeImageView.image = recipeImages[recipe]
-//		cell.nameLabel.text = recipe.name
-//		cell.timeLabel.text = "\(recipe.readyInMinutes) minutes"
-		
-		cell.recipeImageView.image = UIImage(named: "Hamburger")
-		cell.nameLabel.text = "Test"
-		cell.timeLabel.text = "10 minutes"
-		
-		return cell
-	}
+        }
+        
+        cell.recipes = recipes
+        
+        return cell
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        menuBar.horizontalBarLeftConstraint?.constant = scrollView.contentOffset.x / 2
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let index = targetContentOffset.pointee.x / view.frame.width
+        
+        let indexPath = NSIndexPath(item: Int(index), section: 0)
+        
+        menuBar.collectionView.selectItem(at: indexPath as IndexPath, animated: true, scrollPosition: [])
+        
+        setTitleForIndex(index: Int(index))
+    }
+
 }
 
-// MARK - TableView Delegate
-
-extension RecipeViewController: UITableViewDelegate {
-	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		// do any setup when the cell is selected
-		
-		
-	}
+extension RecipeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: view.frame.height - (self.navigationController?.navigationBar.frame.height)!)
+    }
 }
+
