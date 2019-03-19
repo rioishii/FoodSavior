@@ -13,6 +13,7 @@ class RecipeDetail: NSObject {
 	let recipeName: String
 	let imageUrl: String
 	let readyInMinutes: Int
+	let servings: Int
 	let instructions: [Instruction?]
 	let ingredients: [Ingredient?]
 	
@@ -22,6 +23,7 @@ class RecipeDetail: NSObject {
 			  let readyInMinutes = data["readyInMinutes"] as? Int,
 			  let imageUrl = data["image"] as? String,
 			  let analyzedInstructions = data["analyzedInstructions"] as? [[String : Any]],
+			  let servings = data["servings"] as? Int,
 			  let instructions = analyzedInstructions[0]["steps"] as? [[String : Any]],
 			  let nutrition = data["nutrition"] as? [String : Any],
 			  let ingredients = nutrition["ingredients"] as? [[String : Any]] else {
@@ -30,6 +32,7 @@ class RecipeDetail: NSObject {
 			self.recipeName = ""
 			self.readyInMinutes = 0
 			self.imageUrl = ""
+			self.servings = 0
 			self.instructions = []
 			self.ingredients = []
 			
@@ -41,6 +44,7 @@ class RecipeDetail: NSObject {
 		self.recipeName = recipeName
 		self.readyInMinutes = readyInMinutes
 		self.imageUrl = imageUrl
+		self.servings = servings
 		
 		self.instructions = instructions.map({ (instruction) -> Instruction? in
 			if let number = instruction["number"] as? Int,

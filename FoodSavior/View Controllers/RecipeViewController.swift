@@ -167,8 +167,13 @@ class RecipeViewController: UIViewController {
 	}
 	
 	@objc func handleAddFoodSelected() {
+		let foodSelectionViewController = FoodSelectionViewController()
+		foodSelectionViewController.delegate = self
 		
+		foodSelectionViewController.modalTransitionStyle = .crossDissolve
+		foodSelectionViewController.modalPresentationStyle = .fullScreen
 		
+		self.present(foodSelectionViewController, animated: true, completion: nil)
 	}
     
     func scrollToMenuIndex(menuIndex: IndexPath) {
@@ -226,3 +231,10 @@ extension RecipeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension RecipeViewController: FoodSelectionDelegate {
+	func cancelFoodSelectionPressed() {
+		self.dismiss(animated: true) {
+			
+		}
+	}
+}
