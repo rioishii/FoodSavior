@@ -151,8 +151,13 @@ class RecipeViewController: UIViewController {
 	}
 	
 	@objc func handleAddFoodSelected() {
+		let foodSelectionViewController = FoodSelectionViewController()
+		foodSelectionViewController.delegate = self
 		
+		foodSelectionViewController.modalTransitionStyle = .crossDissolve
+		foodSelectionViewController.modalPresentationStyle = .fullScreen
 		
+		self.present(foodSelectionViewController, animated: true, completion: nil)
 	}
 }
 
@@ -197,5 +202,13 @@ extension RecipeViewController: UITableViewDelegate {
 		// do any setup when the cell is selected
 		
 		
+	}
+}
+
+extension RecipeViewController: FoodSelectionDelegate {
+	func cancelFoodSelectionPressed() {
+		self.dismiss(animated: true) {
+			
+		}
 	}
 }
