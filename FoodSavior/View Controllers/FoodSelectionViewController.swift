@@ -116,7 +116,7 @@ class FoodSelectionViewController: UIViewController {
 		
 		let splitIngredients = ingredients.components(separatedBy: ",")
 		
-		// delegate.fetchRecipes(ingredients: splitIngredients)
+		delegate.fetchRecipes(ingredients: splitIngredients)
 	}
 }
 

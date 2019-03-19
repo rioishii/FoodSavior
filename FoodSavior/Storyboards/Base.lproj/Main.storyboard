@@ -51,4 +51,5 @@
     <resources>
         <image name="menu" width="37.5" height="37.5"/>
     </resources>
+    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

@@ -168,9 +168,8 @@ extension RecipeViewController: UICollectionViewDataSource, UICollectionViewDele
 }
 
 extension RecipeViewController: RecipeContainerDelegate {
-	func pushViewController() {
-		let detailsViewController = RecipeDetailsViewController()
-		self.navigationController?.pushViewController(detailsViewController, animated: true)
+	func pushViewController(withRecipeId id: Int) {
+		fetchRecipeDetails(withId: id)
 	}
 }
 
@@ -182,9 +181,7 @@ extension RecipeViewController: UICollectionViewDelegateFlowLayout {
 
 extension RecipeViewController: FoodSelectionDelegate {
 	func cancelFoodSelectionPressed() {
-		self.dismiss(animated: true) {
-			
-		}
+		self.dismiss(animated: true, completion: nil)
 	}
 	
 	func fetchRecipes(ingredients: [String]) {
@@ -240,6 +237,64 @@ extension RecipeViewController: FoodSelectionDelegate {
 		
 		operationQueue.addOperation(getRecipeData)
 		operationQueue.addOperation(getRecipeImages)
+		operationQueue.addOperation(updateUI)
+	}
+	
+	func fetchRecipeDetails(withId id: Int) {
+		let operationQueue = OperationQueue()
+		let dispatchGroup = DispatchGroup()
+		
+		var details: RecipeDetail? = nil
+		var recipeImage: UIImage? = nil
+		
+		let getRecipeData = BlockOperation {
+			dispatchGroup.enter()
+			RecipeAPI.getRecipe(withID: id, completion: { (recipeDetails) in
+				guard let recipeDetails = recipeDetails else {
+					return
+				}
+				details = recipeDetails
+				dispatchGroup.leave()
+			})
+			dispatchGroup.wait()
+		}
+		
+		// From the recipe data, fetches the actual image for the given recipe
+		let getRecipeImage = BlockOperation {
+			dispatchGroup.enter()
+			guard let details = details, let imageUrl = URL(string: details.imageUrl) else {
+				return
+			}
+			
+			RecipeAPI.getRecipeImage(from: imageUrl, completion: { (data, response, error) in
+				if let data = data,
+					let image = UIImage(data: data) {
+					recipeImage = image
+				}
+				dispatchGroup.leave()
+			})
+			dispatchGroup.wait()
+		}
+		
+		// Updates the UI accordingly
+		let updateUI = BlockOperation {
+			dispatchGroup.enter()
+			DispatchQueue.main.async {
+				if let details = details,
+					let image = recipeImage {
+					let detailsViewController = RecipeDetailsViewController(details: details, image: image)
+					
+					self.navigationController?.pushViewController(detailsViewController, animated: true)
+				}
+			}
+			dispatchGroup.leave()
+		}
+		
+		getRecipeImage.addDependency(getRecipeData)
+		updateUI.addDependency(getRecipeImage)
+		
+		operationQueue.addOperation(getRecipeData)
+		operationQueue.addOperation(getRecipeImage)
 		operationQueue.addOperation(updateUI)
 	}
 }

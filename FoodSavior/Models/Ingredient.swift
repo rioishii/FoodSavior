@@ -10,10 +10,8 @@ import UIKit
 
 class Ingredient: NSObject {
 	let name: String
-	let amount: String
 
-	init(name: String, amount: String) {
+	init(name: String) {
 		self.name = name
-		self.amount = amount
 	}
 }

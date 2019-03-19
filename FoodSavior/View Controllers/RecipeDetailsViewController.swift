@@ -12,18 +12,40 @@ class RecipeDetailsViewController: UIViewController {
 	let scrollView = UIScrollView()
 	let contentView = UIView()
 	
+	var details: RecipeDetail!
+	var instructions: [Instruction?]!
+	
 	var foodImage: UIImageView!
 	var foodNameLabel: UILabel!
+	
 	var caloriesLabel: UILabel!
 	var servingsLabel: UILabel!
+	
 	var timeLabel: UILabel!
 	var basicInfoStackView: UIStackView!
 	var ingredientStackView: UIView!
 	var nutritionStackView: UIView!
 	var startCookButton: UIButton!
 	
+	init(details: RecipeDetail, image: UIImage) {
+		self.details = details
+		
+		self.foodImage = UIImageView(frame: .zero)
+		self.foodImage.image = image
+		
+		super.init(nibName: nil, bundle: nil)
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		self.instructions = details.instructions
+		
 		setupScrollView()
 		setupView()
 	}
@@ -54,16 +76,20 @@ class RecipeDetailsViewController: UIViewController {
 	
 	// creates all the view
 	func setupView() {
-		let nutritionStackViewFacts: [String] = ["Calories: 2000", "Fat: 65", "Protein: Cow", "Carbs: Breactycctyccycgcyscasc", "Sugar: Orange"]
-		let ingredientStackViewList: [String] = ["1lb. of Being Boundless", "50lbs. of a bunch of water", "2000lbs. of Struggle"]
+		configureImage()
+		configureTitle()
+		configureBasicInfo()
+		configureButton()
 		
-		createImage()
-		createTitle(title: "This is a test for a really long string")
-		createBasicInfo(servingsLabelings: 1, length: 25)
-		createButton()
 		
-		self.ingredientStackView = ListView(title: "Ingredients", items: ingredientStackViewList)
-		self.nutritionStackView = ListView(title: "Nutrition Facts", items: nutritionStackViewFacts)
+		let ingredientsStrings = details.ingredients.map { (ingredient) -> String in
+			guard let ingredient = ingredient else {
+				return ""
+			}
+			return ingredient.name
+		}
+		self.ingredientStackView = ListView(title: "Ingredients", items: ingredientsStrings)
+		self.nutritionStackView = ListView(title: "Nutrition Facts", items: ["This is an item!"])
 		
 		self.contentView.addSubview(ingredientStackView)
 		self.contentView.addSubview(nutritionStackView)
@@ -95,39 +121,36 @@ class RecipeDetailsViewController: UIViewController {
 		nutritionStackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
 	}
 	
-	// creates the imaage view
-	func createImage() {
-		foodImage = UIImageView(frame: .zero)
-		let image = UIImage(named: "Hamburger")
-		foodImage = UIImageView(image: image)
-		foodImage.contentMode = .scaleAspectFill
-		foodImage.clipsToBounds = true
-		self.contentView.addSubview(foodImage)
+	func configureImage() {
+		self.foodImage.contentMode = .scaleAspectFill
+		self.foodImage.clipsToBounds = true
+		
+		self.view.addSubview(self.foodImage)
 	}
-	
-	// creates title view
-	func createTitle(title: String) {
-		foodNameLabel = UILabel()
-		foodNameLabel.text = "\(title)"
-		foodNameLabel.font = UIFont(name: "ProximaNova-Bold", size: 34)
-		foodNameLabel.lineBreakMode = .byWordWrapping
-		foodNameLabel.numberOfLines = 0
-		foodNameLabel.textAlignment = .center
+
+	func configureTitle() {
+		self.foodNameLabel = UILabel()
+		self.foodNameLabel.text = self.details.recipeName
+		
+		self.foodNameLabel.font = self.foodNameLabel.font.withSize(34)
+		self.foodNameLabel.lineBreakMode = .byWordWrapping
+		self.foodNameLabel.numberOfLines = 0
+		self.foodNameLabel.textAlignment = .center
 		
 		self.contentView.addSubview(foodNameLabel)
 	}
 	
 	// creates the basic information
-	func createBasicInfo(servingsLabelings: Int, length: Int) {
+	func configureBasicInfo() {
 		servingsLabel = UILabel()
-		servingsLabel.text = "Servings: \(servingsLabelings)"
-		servingsLabel.font = UIFont(name: "c-Reg", size: 15)
+		servingsLabel.text = "Servings: \(details.servings)"
+		servingsLabel.font = servingsLabel.font.withSize(15)
 		servingsLabel.lineBreakMode = .byWordWrapping
 		servingsLabel.numberOfLines = 0
 		
 		timeLabel = UILabel()
-		timeLabel.text = "Time: \(length) Minutes"
-		timeLabel.font = UIFont(name: "ProximaNova-Reg", size: 15)
+		timeLabel.text = "Ready in: \(details.readyInMinutes) Minutes"
+		timeLabel.font = timeLabel.font.withSize(15)
 		timeLabel.lineBreakMode = .byWordWrapping
 		timeLabel.numberOfLines = 0
 		
@@ -139,14 +162,12 @@ class RecipeDetailsViewController: UIViewController {
 	}
 	
 	// creates start button
-	func createButton() {
+	func configureButton() {
 		startCookButton = UIButton(type: .custom)
 		startCookButton.setTitle("Start Cooking!", for: .normal)
-		startCookButton.titleLabel?.font = UIFont(name: "ProximaNova-Reg", size: 15)
 		startCookButton.setTitleColor(.black, for: .normal)
 		startCookButton.backgroundColor = .green
 		startCookButton.layer.cornerRadius = 10
-		startCookButton.clipsToBounds = true
 		startCookButton.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
 		self.contentView.addSubview(startCookButton)
 	}
@@ -162,8 +183,13 @@ class RecipeDetailsViewController: UIViewController {
 	}
 	
 	@objc func buttonClicked(sender: UIButton) {
-		//        let controller = InstructionsViewController()
-		//        self.navigationController?.pushViewController(controller, animated: true)
+		
+		
+		
+		
+		
+		
+
 	}
 	
 	// creates constraints

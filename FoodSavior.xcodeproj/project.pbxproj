@@ -14,6 +14,7 @@
 		F2577A972240159F009CD20B /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2577A962240159F009CD20B /* BaseCell.swift */; };
 		F2577A9B22401716009CD20B /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2577A9A22401716009CD20B /* MenuCell.swift */; };
 		F2577AA12240AE77009CD20B /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2577AA02240AE77009CD20B /* ListView.swift */; };
+		F2577AA32240C33A009CD20B /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2577AA22240C33A009CD20B /* InstructionsViewController.swift */; };
 		F2F0CC6522377E6200A10CA7 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CC6422377E6200A10CA7 /* RecipeViewController.swift */; };
 		F2F0CC6B2237863A00A10CA7 /* FoodSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CC6A2237863A00A10CA7 /* FoodSelectionViewController.swift */; };
 		F2F0CC6D2237882C00A10CA7 /* RecipeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CC6C2237882C00A10CA7 /* RecipeDetailsViewController.swift */; };
@@ -47,6 +48,7 @@
 		F2577A962240159F009CD20B /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		F2577A9A22401716009CD20B /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		F2577AA02240AE77009CD20B /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		F2577AA22240C33A009CD20B /* InstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
 		F2F0CC6422377E6200A10CA7 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		F2F0CC6A2237863A00A10CA7 /* FoodSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSelectionViewController.swift; sourceTree = "<group>"; };
 		F2F0CC6C2237882C00A10CA7 /* RecipeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				F2F0CC6422377E6200A10CA7 /* RecipeViewController.swift */,
 				F2F0CC6A2237863A00A10CA7 /* FoodSelectionViewController.swift */,
 				F2F0CC6C2237882C00A10CA7 /* RecipeDetailsViewController.swift */,
+				F2577AA22240C33A009CD20B /* InstructionsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2577AA12240AE77009CD20B /* ListView.swift in Sources */,
+				F2577AA32240C33A009CD20B /* InstructionsViewController.swift in Sources */,
 				F2F0CC6522377E6200A10CA7 /* RecipeViewController.swift in Sources */,
 				F2F0CC6B2237863A00A10CA7 /* FoodSelectionViewController.swift in Sources */,
 				F2F0CCA7223F05E700A10CA7 /* Ingredient.swift in Sources */,

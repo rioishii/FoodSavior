@@ -57,7 +57,7 @@ class RecipeAPI: NSObject {
 		task.resume()
 	}
 	
-	static func getRecipe(withID id: Int, completion: @escaping (_ result: RecipeDetail?, _ error: Error?) -> Void) {
+	static func getRecipe(withID id: Int, completion: @escaping (_ result: RecipeDetail?) -> Void) {
 		let queryString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/\(id)/information?includeNutrition=true"
 	
 		guard let request = createRequest(withUrlString: queryString) else {
@@ -78,10 +78,10 @@ class RecipeAPI: NSObject {
 				}
 				let recipeDetail = RecipeDetail(data: safeJson)
 				
-				completion(recipeDetail, nil)
+				completion(recipeDetail)
 			} catch {
 				print("json seralization failed")
-				completion(nil, error)
+				completion(nil)
 			}
 		}
 		

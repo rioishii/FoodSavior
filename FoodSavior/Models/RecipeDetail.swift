@@ -26,7 +26,7 @@ class RecipeDetail: NSObject {
 			  let servings = data["servings"] as? Int,
 			  let instructions = analyzedInstructions[0]["steps"] as? [[String : Any]],
 			  let nutrition = data["nutrition"] as? [String : Any],
-			  let ingredients = nutrition["ingredients"] as? [[String : Any]] else {
+			  let ingredients = data["extendedIngredients"] as? [[String : Any]] else {
 
 			self.id = -1
 			self.recipeName = ""
@@ -55,12 +55,8 @@ class RecipeDetail: NSObject {
 		})
 		
 		self.ingredients = ingredients.map({ (ingredient) -> Ingredient? in
-			if let name = ingredient["name"] as? String,
-			   let amount = ingredient["amount"] as? Int,
-			   let unit = ingredient["unit"] as? String {
-			
-				let amountAndUnits = "\(amount) \(unit)s"
-				return Ingredient(name: name, amount: amountAndUnits)
+			if let nameAndAmount = ingredient["original"] as? String {
+				return Ingredient(name: nameAndAmount)
 			}
 			return nil
 		})
