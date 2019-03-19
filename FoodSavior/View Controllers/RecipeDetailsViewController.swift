@@ -24,7 +24,6 @@ class RecipeDetailsViewController: UIViewController {
 	var timeLabel: UILabel!
 	var basicInfoStackView: UIStackView!
 	var ingredientStackView: UIView!
-	var nutritionStackView: UIView!
 	var startCookButton: UIButton!
 	
 	init(details: RecipeDetail, image: UIImage) {
@@ -81,7 +80,6 @@ class RecipeDetailsViewController: UIViewController {
 		configureBasicInfo()
 		configureButton()
 		
-		
 		let ingredientsStrings = details.ingredients.map { (ingredient) -> String in
 			guard let ingredient = ingredient else {
 				return ""
@@ -89,10 +87,8 @@ class RecipeDetailsViewController: UIViewController {
 			return ingredient.name
 		}
 		self.ingredientStackView = ListView(title: "Ingredients", items: ingredientsStrings)
-		self.nutritionStackView = ListView(title: "Nutrition Facts", items: ["This is an item!"])
 		
 		self.contentView.addSubview(ingredientStackView)
-		self.contentView.addSubview(nutritionStackView)
 		
 		addSubviewConstraints()
 	}
@@ -115,10 +111,7 @@ class RecipeDetailsViewController: UIViewController {
 		
 		ingredientStackView.translatesAutoresizingMaskIntoConstraints = false
 		constraints(view1: ingredientStackView, view2: startCookButton, space: 20)
-		
-		nutritionStackView.translatesAutoresizingMaskIntoConstraints = false
-		constraints(view1: nutritionStackView, view2: ingredientStackView, space: 16)
-		nutritionStackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
+		ingredientStackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
 	}
 	
 	func configureImage() {
@@ -177,11 +170,7 @@ class RecipeDetailsViewController: UIViewController {
 		self.contentView.addSubview(stackView)
 	}
 	
-	// creates nutritionStackViewition section
-	func createNutr(stackView: UIView) {
-		self.contentView.addSubview(stackView)
-	}
-	
+
 	@objc func buttonClicked(sender: UIButton) {
 		let instructionView = InstructionsViewController(instructions: self.instructions)
 		self.navigationController?.pushViewController(instructionView, animated: true)

@@ -27,17 +27,10 @@ class RecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		self.view.backgroundColor = UIColor.white
-		// self.view.backgroundColor = UIColor.rgb(red: 34, green: 139, blue: 34)
-        
+		self.view.backgroundColor = UIColor.rgb(red: 34, green: 139, blue: 34)
+		
 		// ORDER MATTERS: This needs to be done before the table view is set up
 		setupNavigationBar()
-		
-		self.recipes = [Recipe(data: ["id" : 1, "title": "Testing", "readyInMinutes": 10, "image" : ""]),
-						Recipe(data: ["id" : 2, "title": "Testing", "readyInMinutes": 10, "image" : ""])
-		]
-
-		self.recipeImages = [self.recipes[0] : UIImage(named: "Hamburger")!, self.recipes[1] : UIImage(named: "Hamburger")!]
-		
 		loadFavoriteRecipes()
 		
 		self.setupSubviews()
@@ -327,6 +320,5 @@ extension RecipeViewController: FoodSelectionDelegate {
 		
 		self.favoriteRecipes = favoriteTemp
 		self.favoriteRecipeImages = favoriteImagesTemp
-		
     }
 }
