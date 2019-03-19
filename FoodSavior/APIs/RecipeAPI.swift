@@ -10,15 +10,13 @@ import UIKit
 
 class RecipeAPI: NSObject {
 	
-	static func getRecipes(withIngredients ingredients: [String], completion: @escaping (_ result: [Recipe]?) -> Void) {
+	static func getRecipes(withIngredients ingredients: [String], andAllergies allergies: [String], completion: @escaping (_ result: [Recipe]?) -> Void) {
 		let baseQueryString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?"
 		
-		// TODO: fix this
-		// dairy, egg, gluten, peanut, sesame, seafood, shellfish, soy, sulfite, tree nut, and wheat
-		let intolerancesParam = "intolerances=egg"
-		let numberOfResultsParam = "&number=20"
-		let instructionsParam = "&instructionsRequired=true"
-		let ingredientsParam = "&query=" + ingredients.joined(separator: "%2C+")
+		let intolerancesParam = allergies.count > 0 ? "intolerances=\(allergies.joined(separator: "%2C+"))&" : ""
+		let numberOfResultsParam = "number=20&"
+		let instructionsParam = "instructionsRequired=true&"
+		let ingredientsParam = "query=" + ingredients.joined(separator: "%2C+")
 		
 		let queryStringWithParams = baseQueryString + intolerancesParam + numberOfResultsParam + instructionsParam + ingredientsParam
 

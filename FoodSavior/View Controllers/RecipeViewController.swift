@@ -184,14 +184,14 @@ extension RecipeViewController: FoodSelectionDelegate {
 		self.dismiss(animated: true, completion: nil)
 	}
 	
-	func fetchRecipes(ingredients: [String]) {
+	func fetchRecipes(ingredients: [String], allergies: [String]) {
 		let operationQueue = OperationQueue()
 		let dispatchGroup = DispatchGroup()
 		
 		// Gets most of the recipe data
 		let getRecipeData = BlockOperation {
 			dispatchGroup.enter()
-			RecipeAPI.getRecipes(withIngredients: ingredients) { [weak self] (recipes) in
+			RecipeAPI.getRecipes(withIngredients: ingredients, andAllergies: allergies) { [weak self] (recipes) in
 				guard let strongSelf = self,
 					let safeRecipes = recipes else {
 						// do some error handling

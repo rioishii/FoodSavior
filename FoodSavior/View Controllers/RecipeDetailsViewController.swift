@@ -186,10 +186,6 @@ class RecipeDetailsViewController: UIViewController {
 		
 		
 		
-		
-		
-		
-
 	}
 	
 	// creates constraints
