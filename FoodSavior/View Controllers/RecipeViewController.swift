@@ -69,15 +69,8 @@ class RecipeViewController: UIViewController {
 	func setupNavigationBar() {
 		navigationController?.navigationBar.isTranslucent = false
 		
-        let titleLabel = UILabel()
-        titleLabel.text = "Recipes"
-        titleLabel.adjustsFontSizeToFitWidth = true
-        titleLabel.numberOfLines = 0
-        titleLabel.textColor = UIColor.white
-        titleLabel.font = UIFont.systemFont(ofSize: 30)
-        navigationItem.titleView = titleLabel
+		setTitleForIndex(index: 0)
 		
-		navigationItem.leftBarButtonItem = createNavBarButton(withImage: "setting", action: #selector(handleSettings), dimension: 40)
 		navigationItem.rightBarButtonItem = createNavBarButton(withImage: "fridge", action: #selector(handleAddFoodSelected), dimension: 40)
 		
         self.menuBar = MenuBar(delegate: self)
@@ -103,11 +96,6 @@ class RecipeViewController: UIViewController {
 		return barItem
 	}
 	
-	@objc func handleSettings() {
-
-        
-	}
-	
 	@objc func handleAddFoodSelected() {
 		let foodSelectionViewController = FoodSelectionViewController()
 		foodSelectionViewController.delegate = self
@@ -124,9 +112,14 @@ class RecipeViewController: UIViewController {
     }
     
     private func setTitleForIndex(index: Int) {
-        if let titleLabel = navigationItem.titleView as? UILabel {
-            titleLabel.text = "\(tabs[index])"
-        }
+		let titleLabel = UILabel()
+		titleLabel.textAlignment = .left
+		titleLabel.text = tabs[index]
+		titleLabel.adjustsFontSizeToFitWidth = true
+		titleLabel.numberOfLines = 0
+		titleLabel.textColor = UIColor.white
+		titleLabel.font = UIFont.systemFont(ofSize: 30)
+		navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: titleLabel)
     }
 }
 
@@ -171,6 +164,8 @@ extension RecipeViewController: UICollectionViewDataSource, UICollectionViewDele
 
 extension RecipeViewController: RecipeContainerDelegate {
 	func pushViewController(withRecipeId id: Int) {
+//		let instructions = [Instruction(number: 1, text: "This is some text explaining what to do next in the recipe. Here is a period because I am running out of things to say and this a test"), Instruction(number: 2, text: "Here is yet another instruction!!!")]
+		
 		fetchRecipeDetails(withId: id)
 	}
 }

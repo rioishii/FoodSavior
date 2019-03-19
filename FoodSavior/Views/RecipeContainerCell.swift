@@ -95,7 +95,9 @@ extension RecipeContainerCell: UITableViewDelegate {
 		guard let delegate = delegate else {
 			return
 		}
+		
 		let recipeId = recipes[indexPath.row].id
+//		let recipeId = 1
 		delegate.pushViewController(withRecipeId: recipeId)
 		self.tableView.deselectRow(at: indexPath, animated: false)
     }

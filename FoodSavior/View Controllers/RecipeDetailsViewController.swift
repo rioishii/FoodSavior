@@ -13,7 +13,7 @@ class RecipeDetailsViewController: UIViewController {
 	let contentView = UIView()
 	
 	var details: RecipeDetail!
-	var instructions: [Instruction?]!
+	var instructions: [Instruction]!
 	
 	var foodImage: UIImageView!
 	var foodNameLabel: UILabel!
@@ -44,7 +44,7 @@ class RecipeDetailsViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.instructions = details.instructions
+		self.instructions = details.instructions as? [Instruction]
 		
 		setupScrollView()
 		setupView()
@@ -183,9 +183,8 @@ class RecipeDetailsViewController: UIViewController {
 	}
 	
 	@objc func buttonClicked(sender: UIButton) {
-		
-		
-		
+		let instructionView = InstructionsViewController(instructions: self.instructions)
+		self.navigationController?.pushViewController(instructionView, animated: true)
 	}
 	
 	// creates constraints
