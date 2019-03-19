@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B28496A224095E1001FE8E3 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B284969224095E1001FE8E3 /* ListView.swift */; };
+		5B2849712240961D001FE8E3 /* ProximaNova-Reg.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B28496C2240961C001FE8E3 /* ProximaNova-Reg.otf */; };
+		5B2849722240961D001FE8E3 /* ProximaNova-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B28496D2240961C001FE8E3 /* ProximaNova-Thin.otf */; };
+		5B2849732240961D001FE8E3 /* ProximaNova-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B28496E2240961C001FE8E3 /* ProximaNova-Black.otf */; };
+		5B2849742240961D001FE8E3 /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B28496F2240961D001FE8E3 /* ProximaNova-Bold.otf */; };
+		5B2849752240961D001FE8E3 /* ProximaNova-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B2849702240961D001FE8E3 /* ProximaNova-Light.otf */; };
 		F2F0CC6322377B4700A10CA7 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CC6222377B4700A10CA7 /* ExampleViewController.swift */; };
 		F2F0CC6522377E6200A10CA7 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CC6422377E6200A10CA7 /* RecipeViewController.swift */; };
 		F2F0CC672237827D00A10CA7 /* RecipeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F0CC662237827D00A10CA7 /* RecipeTabBarController.swift */; };
@@ -32,6 +38,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B284969224095E1001FE8E3 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		5B28496C2240961C001FE8E3 /* ProximaNova-Reg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Reg.otf"; sourceTree = "<group>"; };
+		5B28496D2240961C001FE8E3 /* ProximaNova-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Thin.otf"; sourceTree = "<group>"; };
+		5B28496E2240961C001FE8E3 /* ProximaNova-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Black.otf"; sourceTree = "<group>"; };
+		5B28496F2240961D001FE8E3 /* ProximaNova-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Bold.otf"; sourceTree = "<group>"; };
+		5B2849702240961D001FE8E3 /* ProximaNova-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Light.otf"; sourceTree = "<group>"; };
 		F2F0CC6222377B4700A10CA7 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		F2F0CC6422377E6200A10CA7 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		F2F0CC662237827D00A10CA7 /* RecipeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTabBarController.swift; sourceTree = "<group>"; };
@@ -68,9 +80,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B28496B22409604001FE8E3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				5B28496E2240961C001FE8E3 /* ProximaNova-Black.otf */,
+				5B28496F2240961D001FE8E3 /* ProximaNova-Bold.otf */,
+				5B2849702240961D001FE8E3 /* ProximaNova-Light.otf */,
+				5B28496C2240961C001FE8E3 /* ProximaNova-Reg.otf */,
+				5B28496D2240961C001FE8E3 /* ProximaNova-Thin.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		F2F6A526222F9DB800BD2E61 = {
 			isa = PBXGroup;
 			children = (
+				5B28496B22409604001FE8E3 /* Fonts */,
 				F2F6A531222F9DB800BD2E61 /* FoodSavior */,
 				F2F6A546222F9DB900BD2E61 /* FoodSaviorTests */,
 				F2F6A530222F9DB800BD2E61 /* Products */,
@@ -136,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				F2F6A5592231F8F100BD2E61 /* RedUIView.swift */,
+				5B284969224095E1001FE8E3 /* ListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,7 +262,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2F6A53D222F9DB900BD2E61 /* LaunchScreen.storyboard in Resources */,
+				5B2849712240961D001FE8E3 /* ProximaNova-Reg.otf in Resources */,
+				5B2849742240961D001FE8E3 /* ProximaNova-Bold.otf in Resources */,
+				5B2849732240961D001FE8E3 /* ProximaNova-Black.otf in Resources */,
 				F2F6A53A222F9DB900BD2E61 /* Assets.xcassets in Resources */,
+				5B2849752240961D001FE8E3 /* ProximaNova-Light.otf in Resources */,
+				5B2849722240961D001FE8E3 /* ProximaNova-Thin.otf in Resources */,
 				F2F6A538222F9DB800BD2E61 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +294,7 @@
 				F2F6A55A2231F8F100BD2E61 /* RedUIView.swift in Sources */,
 				F2F0CC69223785F900A10CA7 /* FavoritesViewController.swift in Sources */,
 				F2F0CC672237827D00A10CA7 /* RecipeTabBarController.swift in Sources */,
+				5B28496A224095E1001FE8E3 /* ListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
