@@ -13,6 +13,7 @@ class Recipe: NSObject {
 	let name: String
 	let imageUrl: String
 	let readyInMinutes: Int
+    var favorite: Bool
 	
 	init(data: [String : Any]) {
 		guard let id = data["id"] as? Int,
@@ -24,6 +25,7 @@ class Recipe: NSObject {
 			self.name = ""
 			self.readyInMinutes = 0
 			self.imageUrl = ""
+            self.favorite = false
 				
 			super.init()
 			return
@@ -33,6 +35,7 @@ class Recipe: NSObject {
 		self.name = recipeName
 		self.readyInMinutes = readyInMinutes
 		self.imageUrl = "https://spoonacular.com/recipeImages/" + imagePath
+        self.favorite = false
 
 		super.init()
 	}
