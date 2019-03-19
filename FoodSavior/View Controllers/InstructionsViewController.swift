@@ -54,7 +54,7 @@ class InstructionsViewController: UIViewController {
 		let firstInstruction = instructions[0]
 		
 		self.numberLabel.text = "\(firstInstruction.number)"
-		self.numberLabel.font = self.numberLabel.font.withSize(30)
+		self.numberLabel.font = self.numberLabel.font.withSize(50)
 		self.numberLabel.textAlignment = .center
 		self.numberLabel.textColor = UIColor.white
 		
@@ -62,8 +62,9 @@ class InstructionsViewController: UIViewController {
 		self.instructionTextLabel.numberOfLines = 0
 		self.instructionTextLabel.lineBreakMode = .byWordWrapping
 		self.instructionTextLabel.adjustsFontSizeToFitWidth = true
-		self.instructionTextLabel.font = self.instructionTextLabel.font.withSize(20)
+		self.instructionTextLabel.font = self.instructionTextLabel.font.withSize(25)
 		self.instructionTextLabel.textColor = UIColor.white
+		self.instructionTextLabel.textAlignment = .center
 		
 		self.previousButton.setTitle("Previous", for: .normal)
 		self.previousButton.backgroundColor = UIColor.gray
