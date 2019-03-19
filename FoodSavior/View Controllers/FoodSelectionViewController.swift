@@ -85,10 +85,10 @@ class FoodSelectionViewController: UIViewController {
 		self.finishButton = UIButton(frame: .zero)
 		self.finishButton.setTitle("Discover Recipes", for: .normal)
 		self.finishButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 25)
-		self.finishButton.backgroundColor = UIColor.red
+		self.finishButton.backgroundColor = UIColor.gray
 		self.finishButton.titleLabel?.textColor = UIColor.white
 		self.finishButton.addTarget(self, action: #selector(discoverRecipesPressed), for: .touchUpInside)
-		self.finishButton.sizeToFit()
+		self.finishButton.layer.cornerRadius = 10
 		
 		self.view.addSubview(cancelButton)
 		self.view.addSubview(foodToUseTextField)
@@ -137,8 +137,12 @@ class FoodSelectionViewController: UIViewController {
 		self.finishButton.translatesAutoresizingMaskIntoConstraints = false
 		self.finishButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
 		self.finishButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
+		self.finishButton.leftAnchor.constraint(greaterThanOrEqualTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 8).isActive = true
+		self.finishButton.rightAnchor.constraint(greaterThanOrEqualTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -8).isActive = true
+		
 		self.finishButton.topAnchor.constraint(greaterThanOrEqualTo: self.allergyDescriptionLabel.bottomAnchor).isActive = true
-		self.finishButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+		self.finishButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+		self.finishButton.heightAnchor.constraint(equalToConstant: 150).isActive = true
 	}
 	
 	@objc func cancelPressed() {
