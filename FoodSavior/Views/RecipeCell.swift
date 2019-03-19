@@ -15,7 +15,12 @@ protocol RecipeCellDelegate: AnyObject {
 class RecipeCell: UITableViewCell {
 	
     let favoriteButton = UIButton(type: .system)
-	var isFavorited = false
+	var isFavorited: Bool = false {
+		didSet {
+			let image = isFavorited ? UIImage(named: "fav_heart_selected") : UIImage(named: "fav_heart_unselected")
+			self.favoriteButton.setImage(image, for: .normal)
+		}
+	}
 	
 	weak var delegate: RecipeCellDelegate?
 	var cellIndexPath: Int?
@@ -46,8 +51,6 @@ class RecipeCell: UITableViewCell {
     @objc func favoriteButtonHandler(_ sender:UIButton) {
 		// changes heart icon
 		isFavorited = !isFavorited
-		let image = isFavorited ? UIImage(named: "fav_heart_selected") : UIImage(named: "fav_heart_unselected")
-		self.favoriteButton.setImage(image, for: .normal)
 		
 		guard let delegate = delegate,
 		      let indexPath = cellIndexPath else {
@@ -73,6 +76,7 @@ class RecipeCell: UITableViewCell {
 	}
 	
 	func setupSubviews() {
+		
 		self.addSubview(recipeImageView)
 		self.addSubview(nameLabel)
 		self.addSubview(timeLabel)

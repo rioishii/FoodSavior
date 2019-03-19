@@ -6,16 +6,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodSavior/Views/RecipeContainerCell.swift"
+            timestampString = "574729191.143117"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "favoriteButtonToggled(on:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FoodSavior/View Controllers/RecipeViewController.swift"
-            timestampString = "574716302.2847821"
+            filePath = "FoodSavior/Views/RecipeCell.swift"
+            timestampString = "574729191.143571"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "favoriteButtonHandler(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -19,13 +19,18 @@ class FavoriteRecipeDoc: NSObject {
 		let documentDirectoryURL = documentUrl.appendingPathComponent("FoodFavorites/\(data.id)")
 		
 		do {
+			try FileManager.default.createDirectory(atPath: documentDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
+		} catch {
+			print("Failed to create directory")
+		}
+		
+		do {
 			guard let codedData = try? NSKeyedArchiver.archivedData(withRootObject: data, requiringSecureCoding: true),
 				  let imageData = image.jpegData(compressionQuality: 1.0) else {
 				return
 			}
 			try codedData.write(to: documentDirectoryURL.appendingPathComponent("recipe.plist"))
 			try imageData.write(to: documentDirectoryURL.appendingPathComponent("image.jpg"))
-			
 		} catch {
 			print("Failed to write data")
 		}
@@ -35,15 +40,18 @@ class FavoriteRecipeDoc: NSObject {
 		let documentUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 		let documentDirectoryURL = documentUrl.appendingPathComponent("FoodFavorites")
 		
-		guard let recipeFolders = try? FileManager.default.contentsOfDirectory(atPath: documentDirectoryURL.path) else {
+		guard let recipeFolders = try? FileManager.default.contentsOfDirectory(at: documentDirectoryURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles) else {
 			return []
 		}
-		
+
 		let favData = recipeFolders.map { (recipeFolder) -> FavoriteRecipe in
-			guard let imageURL = URL(string: recipeFolder + "image.jpg"),
-				  let imageData = try? Data(contentsOf: imageURL),
-				  let dataUrl = URL(string: recipeFolder + "recipe.plist"),
-				  let data = try? Data(contentsOf: dataUrl),
+			print(recipeFolder.path + "/image.jpg")
+			
+			let imageURL = URL(fileURLWithPath: recipeFolder.path + "/image.jpg")
+			let dataURL = URL(fileURLWithPath: recipeFolder.path + "/recipe.plist")
+			
+			guard let imageData = try? Data(contentsOf: imageURL),
+				  let data = try? Data(contentsOf: dataURL),
 			      let unarchivedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data),
 			      let recipeData = unarchivedData as? Recipe
 			else {

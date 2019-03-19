@@ -11,6 +11,7 @@ import UIKit
 
 protocol RecipeContainerDelegate: AnyObject {
 	func pushViewController(withRecipeId id: Int)
+	func reloadFavoriteRecipes()
 }
 
 class RecipeContainerCell: UICollectionViewCell {
@@ -55,9 +56,7 @@ class RecipeContainerCell: UICollectionViewCell {
 
 extension RecipeContainerCell: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // NOTE: THE FOLLOWING SHOULD ONLY BE UNCOMMENTTED IF REQUESTS ARE BEING MADE
 		 return self.recipes.count
-		// return 5
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -81,10 +80,6 @@ extension RecipeContainerCell: UITableViewDataSource {
 			cell.nameLabel.text = recipe.name
 			cell.timeLabel.text = "Ready in: \(recipe.readyInMinutes) minutes"
 		}
-
-//        cell.recipeImageView.image = UIImage(named: "Hamburger")
-//        cell.nameLabel.text = "Test"
-//        cell.timeLabel.text = "10 minutes"
 		
         return cell
     }
@@ -108,10 +103,17 @@ extension RecipeContainerCell: RecipeCellDelegate {
 		let currentRecipe = recipes[indexPath]
 		let recipeImage = recipeImages[currentRecipe]
 
+		// Does the saving and deleting to and from disk
 		if on {
 			FavoriteRecipeDoc.saveRecipe(toDisk: currentRecipe, image: recipeImage!)
 		} else {
 			FavoriteRecipeDoc.deleteRecipeFromDisk(withId: currentRecipe.id)
 		}
+		
+		guard let delegate = delegate else {
+			return
+		}
+		
+		delegate.reloadFavoriteRecipes()
 	}
 }

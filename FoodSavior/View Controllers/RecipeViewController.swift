@@ -11,14 +11,14 @@ import UIKit
 class RecipeViewController: UIViewController {
 
     private let cellReuseIdentifier = "cellIdentifier"
+	private let anotherCellReuseId = "favId"
 	
 	var collectionView: UICollectionView!
-	var noDataLabel: UILabel!
 	
     var menuBar: MenuBar!
 	
 	var recipes: [Recipe] = []
-	var recipeImages: [Recipe : UIImage] = [:]
+	var recipeImages: [Recipe : UIImage] = [:]	
     var favoriteRecipes: [Recipe] = []
 	var favoriteRecipeImages: [Recipe : UIImage] = [:]
     
@@ -31,6 +31,14 @@ class RecipeViewController: UIViewController {
         
 		// ORDER MATTERS: This needs to be done before the table view is set up
 		setupNavigationBar()
+		
+		self.recipes = [Recipe(data: ["id" : 1, "title": "Testing", "readyInMinutes": 10, "image" : ""]),
+						Recipe(data: ["id" : 2, "title": "Testing", "readyInMinutes": 10, "image" : ""])
+		]
+
+		self.recipeImages = [self.recipes[0] : UIImage(named: "Hamburger")!, self.recipes[1] : UIImage(named: "Hamburger")!]
+		
+		loadFavoriteRecipes()
 		
 		self.setupSubviews()
 		self.addSubviewConstraints()
@@ -47,6 +55,7 @@ class RecipeViewController: UIViewController {
         collectionView.isPagingEnabled = true
 		
         self.collectionView.register(RecipeContainerCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+		self.collectionView.register(FavoriteContainerCell.self, forCellWithReuseIdentifier: anotherCellReuseId)
         
         self.collectionView.backgroundColor = UIColor.white
         self.collectionView.contentInset = UIEdgeInsets(top: (self.navigationController?.navigationBar.frame.size.height)! + menuBar.frame.size.height + 8, left: 0, bottom: 0, right: 0)
@@ -129,22 +138,26 @@ extension RecipeViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as? RecipeContainerCell else {
-            return UICollectionViewCell()
-        }
-		
-		cell.delegate = self
-		
-        if tabs[indexPath.item] == "Recipes" {
+		if tabs[indexPath.item] == "Recipes" {
+			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as? RecipeContainerCell else {
+				return UICollectionViewCell()
+			}
+			cell.delegate = self
 			cell.recipes = self.recipes
 			cell.recipeImages = self.recipeImages
+			cell.tableView.reloadData()
+			return cell
         } else {
+			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: anotherCellReuseId, for: indexPath) as? FavoriteContainerCell else {
+				return UICollectionViewCell()
+			}
 			
+			cell.delegate = self
+			cell.recipes = self.favoriteRecipes
+			cell.recipeImages = self.favoriteRecipeImages
+			cell.tableView.reloadData()
+			return cell
 		}
-		
-		cell.tableView.reloadData()
-        
-        return cell
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -164,9 +177,12 @@ extension RecipeViewController: UICollectionViewDataSource, UICollectionViewDele
 
 extension RecipeViewController: RecipeContainerDelegate {
 	func pushViewController(withRecipeId id: Int) {
-//		let instructions = [Instruction(number: 1, text: "This is some text explaining what to do next in the recipe. Here is a period because I am running out of things to say and this a test"), Instruction(number: 2, text: "Here is yet another instruction!!!")]
-		
-		fetchRecipeDetails(withId: id)
+		// fetchRecipeDetails(withId: id)
+	}
+	
+	func reloadFavoriteRecipes() {
+		loadFavoriteRecipes()
+		self.collectionView.reloadData()
 	}
 }
 
@@ -300,10 +316,17 @@ extension RecipeViewController: FoodSelectionDelegate {
     func loadFavoriteRecipes() {
 		let favoriteRecipes = FavoriteRecipeDoc.readRecipesFromDisk()
 		
+		var favoriteTemp: [Recipe] = []
+		var favoriteImagesTemp: [Recipe : UIImage] = [:]
+		
 		for favRecipe in favoriteRecipes {
 			let recipe = favRecipe.recipe!
-			self.favoriteRecipes.append(recipe)
-			self.favoriteRecipeImages[recipe] = favRecipe.image!
+			favoriteTemp.append(recipe)
+			favoriteImagesTemp[recipe] = favRecipe.image!
 		}
+		
+		self.favoriteRecipes = favoriteTemp
+		self.favoriteRecipeImages = favoriteImagesTemp
+		
     }
 }
