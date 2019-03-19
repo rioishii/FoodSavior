@@ -9,6 +9,8 @@
 import UIKit
 
 class RecipeCell: UITableViewCell {
+    
+    var recipe : Recipe?
 	
     let favoriteButton = UIButton(type: .system)
    
@@ -36,15 +38,14 @@ class RecipeCell: UITableViewCell {
 	}()
     
     @objc func favoriteButtonHandler(_ sender:UIButton) {
-        let currentLabel = sender.titleLabel?.text
-        switch currentLabel {
-        case "Favorite":
-            sender.setTitle("Unfavorite", for: .normal)
-        default:
-            sender.setTitle("Favorite", for: .normal)
-        }
+        print("favorite button was pressed")
+        let navVC = UIApplication.shared.keyWindow!.rootViewController as! UINavigationController
+        let recipeVC = navVC.viewControllers[0] as! RecipeViewController
         
-        print("\(currentLabel ?? "") button was pressed")
+        let newDoc = FavoriteRecipeDoc(recipe:recipe!, image:recipeImageView.image)
+        recipeVC.favoriteRecipes.append(newDoc)
+        print(recipeVC.favoriteRecipes)
+        
     }
 	
 	// MARK - Initializers
@@ -71,8 +72,9 @@ class RecipeCell: UITableViewCell {
     
     func formatFavoriteButton() {
         self.favoriteButton.setTitle("Favorite", for: .normal)
+        self.favoriteButton.setTitleColor(.blue, for: .normal)
         self.favoriteButton.contentHorizontalAlignment = .right
-        self.favoriteButton.addTarget(self, action: #selector(self.favoriteButtonHandler(_:)), for: .touchUpInside)
+        self.favoriteButton.addTarget(self, action: #selector(self.favoriteButtonHandler), for: .touchUpInside)
     }
 	
 	func addSubviewConstraints() {
@@ -94,8 +96,7 @@ class RecipeCell: UITableViewCell {
         self.timeLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
 
         self.favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        self.favoriteButton.addTarget(self, action: #selector(self.favoriteButtonHandler), for: .touchUpInside)
-        self.favoriteButton.topAnchor.constraint(equalTo: self.recipeImageView.bottomAnchor, constant: 8).isActive = true
+        self.favoriteButton.topAnchor.constraint(equalTo: self.timeLabel.topAnchor, constant: 0).isActive = true
         self.favoriteButton.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -100).isActive = true
         self.favoriteButton.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -16).isActive = true
 	}

@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class Recipe: NSObject, NSCoding {
+class Recipe: NSObject, NSCoding, NSSecureCoding {
 	let id: Int
 	let name: String
 	let imageUrl: String
@@ -48,19 +48,23 @@ class Recipe: NSObject, NSCoding {
     }
     
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(id, forKey: Keys.id.rawValue)
-        aCoder.encode(name, forKey: Keys.name.rawValue)
-        aCoder.encode(imageUrl, forKey: Keys.imageUrl.rawValue)
-        aCoder.encode(readyInMinutes, forKey: Keys.readyInMinutes.rawValue)
+        aCoder.encode(NSNumber(value: id), forKey: Keys.id.rawValue)
+        aCoder.encode(name as NSString, forKey: Keys.name.rawValue)
+        aCoder.encode(imageUrl as NSString, forKey: Keys.imageUrl.rawValue)
+        aCoder.encode(NSNumber(value: readyInMinutes), forKey: Keys.readyInMinutes.rawValue)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         //add code here
-        let id = aDecoder.decodeObject(forKey: Keys.id.rawValue) as! Int
-        let name = aDecoder.decodeObject(forKey: Keys.name.rawValue) as! String
-        let imageUrl = aDecoder.decodeObject(forKey: Keys.imageUrl.rawValue) as! Int
-        let readyInMinutes = aDecoder.decodeObject(forKey: Keys.readyInMinutes.rawValue) as! String
+        let id = aDecoder.decodeObject(of: NSNumber.self, forKey: Keys.id.rawValue)
+        let name = aDecoder.decodeObject(of: NSString.self, forKey: Keys.name.rawValue) as String? ?? ""
+        let imageUrl = aDecoder.decodeObject(of: NSString.self, forKey: Keys.imageUrl.rawValue) as String? ?? ""
+        let readyInMinutes = aDecoder.decodeObject(of: NSNumber.self, forKey: Keys.readyInMinutes.rawValue)
         
-        self.init(data: ["id": id, "title": name, "image": imageUrl, "readyInMinutes": readyInMinutes])
+        self.init(data: ["id": id?.intValue ?? 0, "title": name, "image": imageUrl, "readyInMinutes": readyInMinutes?.intValue ?? 0])
+    }
+    
+    static var supportsSecureCoding: Bool {
+        return true
     }
 }
