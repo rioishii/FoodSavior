@@ -138,6 +138,8 @@ extension RecipeViewController: UICollectionViewDataSource, UICollectionViewDele
             return UICollectionViewCell()
         }
 		
+		cell.delegate = self
+		
         if tabs[indexPath.item] == "Recipes" {
 			cell.recipes = self.recipes
 			cell.recipeImages = self.recipeImages
@@ -163,6 +165,13 @@ extension RecipeViewController: UICollectionViewDataSource, UICollectionViewDele
         
         setTitleForIndex(index: Int(index))
     }
+}
+
+extension RecipeViewController: RecipeContainerDelegate {
+	func pushViewController() {
+		let detailsViewController = RecipeDetailsViewController()
+		self.navigationController?.pushViewController(detailsViewController, animated: true)
+	}
 }
 
 extension RecipeViewController: UICollectionViewDelegateFlowLayout {

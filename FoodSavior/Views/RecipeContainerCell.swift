@@ -8,9 +8,15 @@
 
 import UIKit
 
+
+protocol RecipeContainerDelegate: AnyObject {
+	func pushViewController()
+}
+
 class RecipeContainerCell: UICollectionViewCell {
     
     var tableView: UITableView
+	weak var delegate: RecipeContainerDelegate?
     
     var recipes: [Recipe] = []
 	var recipeImages: [Recipe : UIImage] = [:]
@@ -50,7 +56,8 @@ class RecipeContainerCell: UICollectionViewCell {
 extension RecipeContainerCell: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // NOTE: THE FOLLOWING SHOULD ONLY BE UNCOMMENTTED IF REQUESTS ARE BEING MADE
-		return self.recipes.count
+//		return self.recipes.count
+		return 5
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,17 +71,17 @@ extension RecipeContainerCell: UITableViewDataSource {
         
         // NOTE: THE FOLLOWING SHOULD ONLY BE UNCOMMENTTED IF REQUESTS ARE BEING MADE
 		
-		if !recipes.isEmpty {
-			let recipe = recipes[indexPath.row]
-			
-			cell.recipeImageView.image = recipeImages[recipe]
-			cell.nameLabel.text = recipe.name
-			cell.timeLabel.text = "\(recipe.readyInMinutes) minutes"
-		}
+//		if !recipes.isEmpty {
+//			let recipe = recipes[indexPath.row]
+//
+//			cell.recipeImageView.image = recipeImages[recipe]
+//			cell.nameLabel.text = recipe.name
+//			cell.timeLabel.text = "\(recipe.readyInMinutes) minutes"
+//		}
 
-//        cell.recipeImageView.image = UIImage(named: "Hamburger")
-//        cell.nameLabel.text = "Test"
-//        cell.timeLabel.text = "10 minutes"
+        cell.recipeImageView.image = UIImage(named: "Hamburger")
+        cell.nameLabel.text = "Test"
+        cell.timeLabel.text = "10 minutes"
 		
         return cell
     }
@@ -84,9 +91,10 @@ extension RecipeContainerCell: UITableViewDataSource {
 
 extension RecipeContainerCell: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // do any setup when the cell is selected
-        
-        
+		guard let delegate = delegate else {
+			return
+		}
+		delegate.pushViewController()
+		self.tableView.deselectRow(at: indexPath, animated: false)
     }
 }
-
