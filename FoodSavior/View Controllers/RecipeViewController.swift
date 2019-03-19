@@ -19,7 +19,8 @@ class RecipeViewController: UIViewController {
 	
 	var recipes: [Recipe] = []
 	var recipeImages: [Recipe : UIImage] = [:]
-    var favoriteRecipes: [FavoriteRecipeDoc] = []
+    var favoriteRecipes: [Recipe] = []
+	var favoriteRecipeImages: [Recipe : UIImage] = [:]
     
     let tabs = ["Recipes", "Favorites"]
 
@@ -33,7 +34,6 @@ class RecipeViewController: UIViewController {
 		
 		self.setupSubviews()
 		self.addSubviewConstraints()
-
     }
 	
 	func setupSubviews() {
@@ -139,7 +139,7 @@ extension RecipeViewController: UICollectionViewDataSource, UICollectionViewDele
 			cell.recipes = self.recipes
 			cell.recipeImages = self.recipeImages
         } else {
-
+			
 		}
 		
 		cell.tableView.reloadData()
@@ -295,19 +295,15 @@ extension RecipeViewController: FoodSelectionDelegate {
 		operationQueue.addOperation(updateUI)
 	}
     
-    
     // MARK: - Favorites Integration
     
     func loadFavoriteRecipes() {
-//        let recipe1 = FavoriteRecipeDoc(data:["id": 0, "title": "Pastaaaa", "image": "pastaUrl", "readyInMinutes": 10], image:UIImage(named: "Pasta"))
-//        favoriteRecipes = [recipe1]
-        favoriteRecipes = FavoriteRecipeDatabase.loadFavoriteRecipeDocs()
-        
-        for recipe in favoriteRecipes {
-            let data = recipe.data
-            print("\(data!.id): \(data!.name)")
-        }
-        
+		let favoriteRecipes = FavoriteRecipeDoc.readRecipesFromDisk()
+		
+		for favRecipe in favoriteRecipes {
+			let recipe = favRecipe.recipe!
+			self.favoriteRecipes.append(recipe)
+			self.favoriteRecipeImages[recipe] = favRecipe.image!
+		}
     }
-
 }

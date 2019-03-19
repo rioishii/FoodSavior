@@ -56,7 +56,7 @@ class RecipeContainerCell: UICollectionViewCell {
 extension RecipeContainerCell: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // NOTE: THE FOLLOWING SHOULD ONLY BE UNCOMMENTTED IF REQUESTS ARE BEING MADE
-		return self.recipes.count
+		 return self.recipes.count
 		// return 5
     }
     
@@ -73,8 +73,10 @@ extension RecipeContainerCell: UITableViewDataSource {
 		
 		if !recipes.isEmpty {
 			let recipe = recipes[indexPath.row]
-            
-            cell.recipe = recipe
+
+			cell.delegate = self
+			cell.cellIndexPath = indexPath.row
+			
 			cell.recipeImageView.image = recipeImages[recipe]
 			cell.nameLabel.text = recipe.name
 			cell.timeLabel.text = "Ready in: \(recipe.readyInMinutes) minutes"
@@ -95,10 +97,21 @@ extension RecipeContainerCell: UITableViewDelegate {
 		guard let delegate = delegate else {
 			return
 		}
-		
 		let recipeId = recipes[indexPath.row].id
-//		let recipeId = 1
 		delegate.pushViewController(withRecipeId: recipeId)
 		self.tableView.deselectRow(at: indexPath, animated: false)
     }
+}
+
+extension RecipeContainerCell: RecipeCellDelegate {
+	func favoriteButtonToggled(on: Bool, indexPath: Int) {
+		let currentRecipe = recipes[indexPath]
+		let recipeImage = recipeImages[currentRecipe]
+
+		if on {
+			FavoriteRecipeDoc.saveRecipe(toDisk: currentRecipe, image: recipeImage!)
+		} else {
+			FavoriteRecipeDoc.deleteRecipeFromDisk(withId: currentRecipe.id)
+		}
+	}
 }

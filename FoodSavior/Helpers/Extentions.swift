@@ -33,11 +33,5 @@ extension UITextField {
 		self.layer.shadowOffset = CGSize(width: 0, height: 5)
 		self.layer.shadowOpacity = 1.0
 		self.layer.shadowRadius = 0.0
-		
-		
-		
 	}
-	
-	
-	
 }
