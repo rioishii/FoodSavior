@@ -33,8 +33,7 @@ class RecipeViewController: UIViewController {
 		
 		self.setupSubviews()
 		self.addSubviewConstraints()
-        
-        loadFavoriteRecipes()
+
     }
 	
 	func setupSubviews() {
