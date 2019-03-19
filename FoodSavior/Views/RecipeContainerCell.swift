@@ -73,7 +73,8 @@ extension RecipeContainerCell: UITableViewDataSource {
 		
 		if !recipes.isEmpty {
 			let recipe = recipes[indexPath.row]
-
+            
+            cell.recipe = recipe
 			cell.recipeImageView.image = recipeImages[recipe]
 			cell.nameLabel.text = recipe.name
 			cell.timeLabel.text = "Ready in: \(recipe.readyInMinutes) minutes"

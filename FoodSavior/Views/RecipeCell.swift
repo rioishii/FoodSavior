@@ -9,7 +9,11 @@
 import UIKit
 
 class RecipeCell: UITableViewCell {
+    
+    var recipe : Recipe?
 	
+    let favoriteButton = UIButton(type: .system)
+   
 	let recipeImageView: UIImageView = {
 		let recipeImageView = UIImageView()
 		recipeImageView.contentMode = .scaleAspectFill
@@ -32,11 +36,23 @@ class RecipeCell: UITableViewCell {
 		label.numberOfLines = 0
 		return label
 	}()
+    
+    @objc func favoriteButtonHandler(_ sender:UIButton) {
+        print("favorite button was pressed")
+        let navVC = UIApplication.shared.keyWindow!.rootViewController as! UINavigationController
+        let recipeVC = navVC.viewControllers[0] as! RecipeViewController
+        
+        let newDoc = FavoriteRecipeDoc(recipe:recipe!, image:recipeImageView.image)
+        recipeVC.favoriteRecipes.append(newDoc)
+        print(recipeVC.favoriteRecipes)
+        
+    }
 	
 	// MARK - Initializers
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.formatFavoriteButton()
 		self.setupSubviews()
 		self.addSubviewConstraints()
 	}
@@ -51,7 +67,15 @@ class RecipeCell: UITableViewCell {
 		self.addSubview(recipeImageView)
 		self.addSubview(nameLabel)
 		self.addSubview(timeLabel)
+        self.addSubview(favoriteButton)
 	}
+    
+    func formatFavoriteButton() {
+        self.favoriteButton.setTitle("Favorite", for: .normal)
+        self.favoriteButton.setTitleColor(.blue, for: .normal)
+        self.favoriteButton.contentHorizontalAlignment = .right
+        self.favoriteButton.addTarget(self, action: #selector(self.favoriteButtonHandler), for: .touchUpInside)
+    }
 	
 	func addSubviewConstraints() {
 		self.recipeImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,6 +93,11 @@ class RecipeCell: UITableViewCell {
 		self.timeLabel.topAnchor.constraint(equalTo: self.nameLabel.bottomAnchor, constant: 8).isActive = true
 		self.timeLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 16).isActive = true
 		self.timeLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: 16).isActive = true
-		self.timeLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
+        self.timeLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
+
+        self.favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        self.favoriteButton.topAnchor.constraint(equalTo: self.timeLabel.topAnchor, constant: 0).isActive = true
+        self.favoriteButton.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -100).isActive = true
+        self.favoriteButton.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -16).isActive = true
 	}
 }
