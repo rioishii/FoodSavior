@@ -24,7 +24,8 @@ class RecipeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		self.view.backgroundColor = UIColor.rgb(red: 34, green: 139, blue: 34)
+		self.view.backgroundColor = UIColor.white
+		// self.view.backgroundColor = UIColor.rgb(red: 34, green: 139, blue: 34)
         
 		// ORDER MATTERS: This needs to be done before the table view is set up
 		setupNavigationBar()
@@ -32,67 +33,6 @@ class RecipeViewController: UIViewController {
 		self.setupSubviews()
 		self.addSubviewConstraints()
     }
-	
-	func getRecipeData() {
-		let operationQueue = OperationQueue()
-		let dispatchGroup = DispatchGroup()
-		
-		// Gets most of the recipe data
-		let getRecipeData = BlockOperation {
-			dispatchGroup.enter()
-			RecipeAPI.getRecipes(withIngredients: ["chicken"]) { [weak self] (recipes) in
-				guard let strongSelf = self,
-					let safeRecipes = recipes else {
-						// do some error handling
-						return
-				}
-				strongSelf.recipes = safeRecipes
-				dispatchGroup.leave()
-			}
-			dispatchGroup.wait()
-		}
-		
-		// From the recipe data, fetches the actual image for the given recipe
-		let getRecipeImages = BlockOperation {
-			for recipe in self.recipes {
-				guard let imageUrl = URL(string: recipe.imageUrl) else {
-					continue
-				}
-				dispatchGroup.enter()
-				RecipeAPI.getRecipeImage(from: imageUrl, completion: { [weak self] (data, response, error) in
-					if let strongSelf = self,
-					   let data = data,
-					   let image = UIImage(data: data) {
-						strongSelf.recipeImages[recipe] = image
-					}
-					dispatchGroup.leave()
-				})
-			}
-			dispatchGroup.wait()
-		}
-		
-		// Updates the UI accordingly
-		let updateUI = BlockOperation {
-			dispatchGroup.enter()
-			DispatchQueue.main.async {
-				if (self.collectionView != nil) {
-					self.collectionView.reloadData()
-				} else {
-					self.setupSubviews()
-					self.addSubviewConstraints()
-				}
-			}
-			dispatchGroup.leave()
-		}
-		
-		getRecipeImages.addDependency(getRecipeData)
-		updateUI.addDependency(getRecipeImages)
-		
-		operationQueue.addOperation(getRecipeData)
-		operationQueue.addOperation(getRecipeImages)
-		operationQueue.addOperation(updateUI)
-	}
-
 	
 	func setupSubviews() {
         let flowLayout = UICollectionViewFlowLayout()
@@ -197,14 +137,13 @@ extension RecipeViewController: UICollectionViewDataSource, UICollectionViewDele
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as? RecipeContainerCell else {
             return UICollectionViewCell()
         }
-        
+		
         if tabs[indexPath.item] == "Recipes" {
-            
+			cell.recipes = self.recipes
+			cell.recipeImages = self.recipeImages
         } else {
 
-        }
-        
-        cell.recipes = recipes
+		}
         
         return cell
     }
@@ -236,5 +175,64 @@ extension RecipeViewController: FoodSelectionDelegate {
 		self.dismiss(animated: true) {
 			
 		}
+	}
+	
+	func fetchRecipes(ingredients: [String]) {
+		self.dismiss(animated: true, completion: nil)
+		
+		let operationQueue = OperationQueue()
+		let dispatchGroup = DispatchGroup()
+		
+		// Gets most of the recipe data
+		let getRecipeData = BlockOperation {
+			dispatchGroup.enter()
+			RecipeAPI.getRecipes(withIngredients: ingredients) { [weak self] (recipes) in
+				guard let strongSelf = self,
+					let safeRecipes = recipes else {
+						// do some error handling
+						return
+				}
+				strongSelf.recipes = safeRecipes
+				dispatchGroup.leave()
+			}
+			dispatchGroup.wait()
+		}
+		
+		// From the recipe data, fetches the actual image for the given recipe
+		let getRecipeImages = BlockOperation {
+			for recipe in self.recipes {
+				guard let imageUrl = URL(string: recipe.imageUrl) else {
+					continue
+				}
+				dispatchGroup.enter()
+				RecipeAPI.getRecipeImage(from: imageUrl, completion: { [weak self] (data, response, error) in
+					if let strongSelf = self,
+						let data = data,
+						let image = UIImage(data: data) {
+						strongSelf.recipeImages[recipe] = image
+					}
+					dispatchGroup.leave()
+				})
+			}
+			dispatchGroup.wait()
+		}
+		
+		// Updates the UI accordingly
+		let updateUI = BlockOperation {
+			dispatchGroup.enter()
+			DispatchQueue.main.async {
+				
+				
+			}
+
+			dispatchGroup.leave()
+		}
+		
+		getRecipeImages.addDependency(getRecipeData)
+		updateUI.addDependency(getRecipeImages)
+		
+		operationQueue.addOperation(getRecipeData)
+		operationQueue.addOperation(getRecipeImages)
+		operationQueue.addOperation(updateUI)
 	}
 }

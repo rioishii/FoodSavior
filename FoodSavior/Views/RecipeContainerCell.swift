@@ -13,6 +13,7 @@ class RecipeContainerCell: UICollectionViewCell {
     var tableView: UITableView
     
     var recipes: [Recipe] = []
+	var recipeImages: [Recipe : UIImage] = [:]
     
     let cellReuseIdentifier = "tableViewCellId"
     
@@ -20,9 +21,7 @@ class RecipeContainerCell: UICollectionViewCell {
         self.tableView = UITableView(frame: .zero)
         
         super.init(frame: frame)
-        self.backgroundColor = UIColor.blue
-        setupSubviews()
-        addSubviewConstraints()
+		
     }
     
     func setupSubviews() {
@@ -51,9 +50,9 @@ class RecipeContainerCell: UICollectionViewCell {
 
 extension RecipeContainerCell: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        // return 10
         // NOTE: THE FOLLOWING SHOULD ONLY BE UNCOMMENTTED IF REQUESTS ARE BEING MADE
-        // return self.recipes.count
+		return self.recipes.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,16 +66,16 @@ extension RecipeContainerCell: UITableViewDataSource {
         
         
         //        NOTE: THE FOLLOWING SHOULD ONLY BE UNCOMMENTTED IF REQUESTS ARE BEING MADE
-        //        let recipe = recipes[indexPath.row]
-        //
-        //        cell.recipeImageView.image = recipeImages[recipe]
-        //        cell.nameLabel.text = recipe.name
-        //        cell.timeLabel.text = "\(recipe.readyInMinutes) minutes"
-        
-        cell.recipeImageView.image = UIImage(named: "Hamburger")
-        cell.nameLabel.text = "Test"
-        cell.timeLabel.text = "10 minutes"
-        
+		let recipe = recipes[indexPath.row]
+
+		cell.recipeImageView.image = recipeImages[recipe]
+		cell.nameLabel.text = recipe.name
+		cell.timeLabel.text = "\(recipe.readyInMinutes) minutes"
+//
+//        cell.recipeImageView.image = UIImage(named: "Hamburger")
+//        cell.nameLabel.text = "Test"
+//        cell.timeLabel.text = "10 minutes"
+		
         return cell
     }
 }

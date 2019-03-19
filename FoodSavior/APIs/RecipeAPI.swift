@@ -33,6 +33,8 @@ class RecipeAPI: NSObject {
 				return
 			}
 			
+			print(response!)
+			
 			do {
 				let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
 				guard let safeJson = json, let results = safeJson["results"] as? [[String : Any]] else {
