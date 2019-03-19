@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol RecipeContainerDelegate: AnyObject {
+    func pushViewController()
+}
+
 class RecipeContainerCell: UICollectionViewCell {
     
     var tableView: UITableView
+    
+    weak var delegate: RecipeContainerDelegate?
     
     var recipes: [Recipe] = []
     
@@ -85,8 +91,8 @@ extension RecipeContainerCell: UITableViewDataSource {
 
 extension RecipeContainerCell: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // do any setup when the cell is selected
         
+        delegate?.pushViewController()
         
     }
 }

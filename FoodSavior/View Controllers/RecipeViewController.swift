@@ -205,6 +205,7 @@ extension RecipeViewController: UICollectionViewDataSource, UICollectionViewDele
         }
         
         cell.recipes = recipes
+        cell.delegate = self
         
         return cell
     }
@@ -237,4 +238,12 @@ extension RecipeViewController: FoodSelectionDelegate {
 			
 		}
 	}
+}
+
+extension RecipeViewController: RecipeContainerDelegate {
+    func pushViewController() {
+        
+
+    }
+    
 }
