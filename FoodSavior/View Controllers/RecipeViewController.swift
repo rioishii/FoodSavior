@@ -144,6 +144,8 @@ extension RecipeViewController: UICollectionViewDataSource, UICollectionViewDele
         } else {
 
 		}
+		
+		cell.tableView.reloadData()
         
         return cell
     }
@@ -161,7 +163,6 @@ extension RecipeViewController: UICollectionViewDataSource, UICollectionViewDele
         
         setTitleForIndex(index: Int(index))
     }
-
 }
 
 extension RecipeViewController: UICollectionViewDelegateFlowLayout {
@@ -178,8 +179,6 @@ extension RecipeViewController: FoodSelectionDelegate {
 	}
 	
 	func fetchRecipes(ingredients: [String]) {
-		self.dismiss(animated: true, completion: nil)
-		
 		let operationQueue = OperationQueue()
 		let dispatchGroup = DispatchGroup()
 		
@@ -221,11 +220,10 @@ extension RecipeViewController: FoodSelectionDelegate {
 		let updateUI = BlockOperation {
 			dispatchGroup.enter()
 			DispatchQueue.main.async {
-				
-				
+				self.collectionView.reloadData()
 			}
-
 			dispatchGroup.leave()
+			self.dismiss(animated: true, completion: nil)
 		}
 		
 		getRecipeImages.addDependency(getRecipeData)

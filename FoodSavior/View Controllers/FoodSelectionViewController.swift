@@ -22,6 +22,7 @@ class FoodSelectionViewController: UIViewController {
 	var foodToUseTextField: UITextField!
 	var finishButton: UIButton!
 	
+	var spinner = UIActivityIndicatorView(style: .whiteLarge)
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,8 +69,8 @@ class FoodSelectionViewController: UIViewController {
 	
 	func addSubviewConstraints() {
 		self.cancelButton.translatesAutoresizingMaskIntoConstraints = false
-		self.cancelButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 16).isActive = true
-		self.cancelButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
+		self.cancelButton.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 24).isActive = true
+		self.cancelButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
 		self.cancelButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
 		
 		self.foodToUseTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -100,12 +101,18 @@ class FoodSelectionViewController: UIViewController {
 	}
 	
 	@objc func discoverRecipesPressed() {
-		guard let delegate = delegate else {
+		guard let delegate = delegate,
+		      let ingredients = self.foodToUseTextField.text else {
 			return
 		}
-		guard let ingredients = self.foodToUseTextField.text else {
-			return
-		}
+		
+		self.view.addSubview(spinner)
+		
+		spinner.translatesAutoresizingMaskIntoConstraints = false
+		spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+		spinner.topAnchor.constraint(equalTo: self.foodToUseTextField.bottomAnchor, constant: 20).isActive = true
+		
+		spinner.startAnimating()
 		
 		let splitIngredients = ingredients.components(separatedBy: ",")
 		
