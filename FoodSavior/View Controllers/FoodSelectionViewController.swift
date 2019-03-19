@@ -32,7 +32,7 @@ class FoodSelectionViewController: UIViewController {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		self.view.backgroundColor = UIColor.purple
+		self.view.backgroundColor = UIColor.rgb(red: 125, green: 193, blue: 58)
 
 		setupSubviews()
 		addSubviewConstraints()
@@ -55,7 +55,7 @@ class FoodSelectionViewController: UIViewController {
 		self.foodToUseTextField = UITextField(frame: .zero)
 		self.foodToUseTextField.delegate = self
 		self.foodToUseTextField.setBottomBorder()
-		self.foodToUseTextField.backgroundColor = UIColor.purple
+		self.foodToUseTextField.backgroundColor = UIColor.rgb(red: 125, green: 193, blue: 58)
 		self.foodToUseTextField.font = self.foodToUseTextField.font?.withSize(25)
 		self.foodToUseTextField.textColor = UIColor.white
 		
@@ -70,7 +70,7 @@ class FoodSelectionViewController: UIViewController {
 		self.allergyTextField = UITextField(frame: .zero)
 		self.allergyTextField.delegate = self
 		self.allergyTextField.setBottomBorder()
-		self.allergyTextField.backgroundColor = UIColor.purple
+		self.allergyTextField.backgroundColor = UIColor.rgb(red: 125, green: 193, blue: 58)
 		self.allergyTextField.font = self.foodToUseTextField.font?.withSize(25)
 		self.allergyTextField.textColor = UIColor.white
 		
@@ -85,7 +85,7 @@ class FoodSelectionViewController: UIViewController {
 		self.finishButton = UIButton(frame: .zero)
 		self.finishButton.setTitle("Discover Recipes", for: .normal)
 		self.finishButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 25)
-		self.finishButton.backgroundColor = UIColor.gray
+		self.finishButton.backgroundColor = UIColor.black
 		self.finishButton.titleLabel?.textColor = UIColor.white
 		self.finishButton.addTarget(self, action: #selector(discoverRecipesPressed), for: .touchUpInside)
 		self.finishButton.layer.cornerRadius = 10
