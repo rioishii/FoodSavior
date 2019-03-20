@@ -75,12 +75,13 @@ extension RecipeContainerCell: UITableViewDataSource {
 
 			cell.delegate = self
 			cell.cellIndexPath = indexPath.row
-			
+
 			cell.recipeImageView.image = recipeImages[recipe]
 			cell.nameLabel.text = recipe.name
 			cell.timeLabel.text = "Ready in: \(recipe.readyInMinutes) minutes"
+			cell.shouldShowSave = true
 		}
-		
+	
         return cell
     }
 }
@@ -99,7 +100,7 @@ extension RecipeContainerCell: UITableViewDelegate {
 }
 
 extension RecipeContainerCell: RecipeCellDelegate {
-	func favoriteButtonToggled(on: Bool, indexPath: Int) {
+	func toggleRecipeSaved(on: Bool, indexPath: Int) {
 		let currentRecipe = recipes[indexPath]
 		let recipeImage = recipeImages[currentRecipe]
 
@@ -109,7 +110,7 @@ extension RecipeContainerCell: RecipeCellDelegate {
 		} else {
 			FavoriteRecipeDoc.deleteRecipeFromDisk(withId: currentRecipe.id)
 		}
-		
+	
 		guard let delegate = delegate else {
 			return
 		}

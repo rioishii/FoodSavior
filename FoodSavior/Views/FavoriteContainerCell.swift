@@ -30,9 +30,11 @@ class FavoriteContainerCell: RecipeContainerCell {
 			cell.recipeImageView.image = recipeImages[recipe]
 			cell.nameLabel.text = recipe.name
 			cell.timeLabel.text = "Ready in: \(recipe.readyInMinutes) minutes"
-			cell.isFavorited = true
+			cell.shouldShowSave = false
 		}
 		
 		return cell
 	}
+	
+	
 }

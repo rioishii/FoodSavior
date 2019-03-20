@@ -26,12 +26,15 @@ class RecipeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		self.view.backgroundColor = UIColor.white
-		self.view.backgroundColor = UIColor.rgb(red: 34, green: 139, blue: 34)
+		self.view.backgroundColor = UIColor.rgb(red: 125, green: 193, blue: 58)
 		
 		// ORDER MATTERS: This needs to be done before the table view is set up
 		setupNavigationBar()
 		loadFavoriteRecipes()
+//		
+//		self.recipes = [Recipe(data: ["id" : 1, "title" : "Testing", "readyInMinutes" : 10, "image" : ""]), Recipe(data: ["id" : 2, "title" : "Testing", "readyInMinutes" : 10, "image" : ""])]
+//		
+//		self.recipeImages = [self.recipes[0] : UIImage(named: "Hamburger"), self.recipes[1] : UIImage(named: "Hamburger")] as! [Recipe : UIImage]
 		
 		self.setupSubviews()
 		self.addSubviewConstraints()
@@ -51,9 +54,9 @@ class RecipeViewController: UIViewController {
 		self.collectionView.register(FavoriteContainerCell.self, forCellWithReuseIdentifier: anotherCellReuseId)
         
         self.collectionView.backgroundColor = UIColor.white
-        self.collectionView.contentInset = UIEdgeInsets(top: (self.navigationController?.navigationBar.frame.size.height)! + menuBar.frame.size.height + 8, left: 0, bottom: 0, right: 0)
-        self.collectionView.scrollIndicatorInsets = UIEdgeInsets(top: (self.navigationController?.navigationBar.frame.size.height)! + menuBar.frame.size.height + 8, left: 0, bottom: 0, right: 0)
-        
+//        self.collectionView.contentInset = UIEdgeInsets(top: (self.navigationController?.navigationBar.frame.size.height)! + menuBar.frame.size.height, left: 0, bottom: 0, right: 0)
+//        self.collectionView.scrollIndicatorInsets = UIEdgeInsets(top: (self.navigationController?.navigationBar.frame.size.height)! + menuBar.frame.size.height, left: 0, bottom: 0, right: 0)
+		
 		self.view.addSubview(self.collectionView)
 	}
 	
@@ -73,7 +76,7 @@ class RecipeViewController: UIViewController {
 		
 		setTitleForIndex(index: 0)
 		
-		navigationItem.rightBarButtonItem = createNavBarButton(withImage: "fridge", action: #selector(handleAddFoodSelected), dimension: 40)
+		navigationItem.rightBarButtonItem = createNavBarButton(withImage: "fridge", action: #selector(handleAddFoodSelected), dimension: 50)
 		
         self.menuBar = MenuBar(delegate: self)
 		self.view.addSubview(menuBar)
@@ -91,7 +94,6 @@ class RecipeViewController: UIViewController {
 		button.addTarget(self, action: action, for: .touchUpInside)
 
 		let barItem = UIBarButtonItem(customView: button)
-		barItem.tintColor = UIColor.black
 		barItem.customView?.widthAnchor.constraint(equalToConstant: dimension).isActive = true
 		barItem.customView?.heightAnchor.constraint(equalToConstant: dimension).isActive = true
 		
@@ -115,13 +117,13 @@ class RecipeViewController: UIViewController {
     
     private func setTitleForIndex(index: Int) {
 		let titleLabel = UILabel()
-		titleLabel.textAlignment = .left
+		titleLabel.textAlignment = .center
 		titleLabel.text = tabs[index]
 		titleLabel.adjustsFontSizeToFitWidth = true
 		titleLabel.numberOfLines = 0
 		titleLabel.textColor = UIColor.white
 		titleLabel.font = UIFont.systemFont(ofSize: 30)
-		navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: titleLabel)
+		navigationItem.titleView = titleLabel
     }
 }
 
@@ -170,7 +172,7 @@ extension RecipeViewController: UICollectionViewDataSource, UICollectionViewDele
 
 extension RecipeViewController: RecipeContainerDelegate {
 	func pushViewController(withRecipeId id: Int) {
-		// fetchRecipeDetails(withId: id)
+		fetchRecipeDetails(withId: id)
 	}
 	
 	func reloadFavoriteRecipes() {
