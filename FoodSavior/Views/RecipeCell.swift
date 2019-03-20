@@ -95,10 +95,10 @@ class RecipeCell: UITableViewCell {
 		self.recipeImageView.heightAnchor.constraint(equalToConstant: 200).isActive = true
 
 		self.favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-		self.favoriteButton.topAnchor.constraint(equalTo: self.recipeImageView.bottomAnchor, constant: 8).isActive = true
-		self.favoriteButton.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -16).isActive = true
-		self.favoriteButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-		self.favoriteButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
+		self.favoriteButton.topAnchor.constraint(equalTo: self.recipeImageView.bottomAnchor, constant: 16).isActive = true
+		self.favoriteButton.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -24).isActive = true
+		self.favoriteButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+		self.favoriteButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
 		
 		self.nameLabel.translatesAutoresizingMaskIntoConstraints = false
 		self.nameLabel.topAnchor.constraint(equalTo: self.recipeImageView.bottomAnchor, constant: 8).isActive = true

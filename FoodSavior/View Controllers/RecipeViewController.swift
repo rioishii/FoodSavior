@@ -31,10 +31,10 @@ class RecipeViewController: UIViewController {
 		// ORDER MATTERS: This needs to be done before the table view is set up
 		setupNavigationBar()
 		loadFavoriteRecipes()
-//		
-//		self.recipes = [Recipe(data: ["id" : 1, "title" : "Testing", "readyInMinutes" : 10, "image" : ""]), Recipe(data: ["id" : 2, "title" : "Testing", "readyInMinutes" : 10, "image" : ""])]
-//		
-//		self.recipeImages = [self.recipes[0] : UIImage(named: "Hamburger"), self.recipes[1] : UIImage(named: "Hamburger")] as! [Recipe : UIImage]
+
+		self.recipes = [Recipe(data: ["id" : 1, "title" : "Testing", "readyInMinutes" : 10, "image" : ""]), Recipe(data: ["id" : 2, "title" : "Testing", "readyInMinutes" : 10, "image" : ""])]
+
+		self.recipeImages = [self.recipes[0] : UIImage(named: "Hamburger"), self.recipes[1] : UIImage(named: "Hamburger")] as! [Recipe : UIImage]
 		
 		self.setupSubviews()
 		self.addSubviewConstraints()

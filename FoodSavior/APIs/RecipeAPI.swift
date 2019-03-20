@@ -97,8 +97,19 @@ class RecipeAPI: NSObject {
 			return nil
 		}
 		
+		var keys: NSDictionary?
+		
+		if let path = Bundle.main.path(forResource: "Keys", ofType: "plist") {
+			keys = NSDictionary(contentsOfFile: path)
+		}
+		
+		guard let dict = keys,
+			let apiKey = dict["X-RapidAPI-Key"] as? String else {
+				return nil
+		}
+		
 		var request = URLRequest(url: url)
-		request.addValue("f83c2df860mshdf330622647511dp1797dcjsnd6de3705c19e", forHTTPHeaderField: "X-RapidAPI-Key")
+		request.addValue(apiKey, forHTTPHeaderField: "X-RapidAPI-Key")
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.httpMethod = "GET"
 		
