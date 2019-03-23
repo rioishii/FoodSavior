@@ -7,3 +7,7 @@
 
 
 <img src="https://github.com/rioishii/FoodSavior/blob/master/Screenshots/IMG_0864.PNG" alt="alt text" width="414" height="736">
+
+<img src="https://github.com/rioishii/FoodSavior/blob/master/Screenshots/IMG_0865.PNG" alt="alt text" width="414" height="736">
+
+<img src="https://github.com/rioishii/FoodSavior/blob/master/Screenshots/IMG_0866.PNG" alt="alt text" width="414" height="736">
