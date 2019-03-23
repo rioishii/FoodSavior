@@ -5,4 +5,5 @@
 - Capability to filter recipes to dietary needs
 - Find recipes based on how long it takes to make the dish
 
-![alt](https://github.com/rioishii/FoodSavior/blob/master/Screenshots/IMG_0864.PNG | height=100)
+<img src="https://github.com/rioishii/FoodSavior/blob/master/Screenshots/IMG_0864.PNG" alt="alt text" width="100" height="200">
+
